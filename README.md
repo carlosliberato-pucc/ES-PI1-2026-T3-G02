@@ -17,7 +17,7 @@
 
 ## 🌟 Projeto LAD.py - Sistema de Votação Digital
 
-O **LAD.Py** é o backend de um sistema de votação digital fictício desenvolvido como Projeto Integrador I. O objetivo principal é integrar lógica de programação em Python, manipulação de bancos de dados relacionais (SQL) e conceitos de Álgebra Linear aplicados à segurança da informação.
+O **LAD.Py** é um sistema de votação digital fictício desenvolvido como Projeto Integrador I. O objetivo principal é integrar lógica de programação em Python, manipulação de bancos de dados relacionais (SQL) e conceitos de Álgebra Linear aplicados à segurança da informação.
 
 ## 📌 Visão Geral
 
