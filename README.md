@@ -13,7 +13,6 @@
 - Carlos Liberato  
 - Felipe Miranda  
 - Gabriel Coutinho  
-- Leonardo Amad  
 - Nicolas Reis
 
 ## 🌟 Projeto LAD.py - Sistema de Votação Digital
