@@ -1,0 +1,3 @@
+
+def votacao():
+    print("Votacao")
