@@ -1,4 +1,0 @@
-
-
-def gerenciamento():
-    print("Gerenciamento")
