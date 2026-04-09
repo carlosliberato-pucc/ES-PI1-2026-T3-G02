@@ -8,7 +8,7 @@ def conectar():
         conexao = mysql.connector.connect(
             host = "localhost",
             user = "root",
-            password = "c4rl0s.1",
+            password = "senha",
             database = "ladpy"
         )
         if conexao.is_connected():
@@ -18,4 +18,3 @@ def conectar():
         print("Erro ao conectar ao banco de dados (DEPOIS APAGAR)")
         return None
     
-    # ainda não esta funcionando

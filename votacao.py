@@ -1,3 +1,10 @@
 
-def votacao():
-    print("Votacao")
+def abrirVotacao():
+    pass
+
+def auditoria():
+    pass
+
+def resultados():
+    pass
+
