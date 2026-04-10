@@ -1,16 +1,17 @@
-import gerenciamentoEleitores
-import gerenciamentoCandidatos
+# Desenvolvido por Carlos Liberato
+import eleitores.gerenciamentoEleitores as eleitores
+import candidatos.gerenciamentoCandidatos as candidatos
 import votacao
 
 def menuInicial():
     while True:
-        print('--- Menu Inicial ---')
+        print('\n--- Menu Inicial ---')
         print('[1] Gerenciamento')
         print('[2] Votação')
         print('[3] Fechar')
 
         opcao = int(input("Digite a opção que deseja: "))
-
+        # redireciona a função de acordo com a opção
         match opcao:
             case 1: 
                 menuGerenciamento()
@@ -31,7 +32,7 @@ def menuGerenciamento():
         print('[0] Voltar')
 
         opcao = int(input("Digite a opção que deseja: "))
-
+        # redireciona a função de acordo com a opção
         match opcao:
             case 1: 
                 menuEleitores()
@@ -39,7 +40,6 @@ def menuGerenciamento():
             case 2:
                 menuCandidatos()
             case 0:
-                print('\n')
                 menuInicial()
             case _: 
                 print('\nOpção Inválida. Tente Novamente...\n')
@@ -52,7 +52,7 @@ def menuVotacao():
         print("[2] Auditoria do sistema de votação")
         print("[3] Resultados da votação")
         print("[0] Voltar")
-
+        # redireciona a função de acordo com a opção
         opcao = int(input("Digite uma opção: "))
         if opcao == 0:
             break
@@ -69,10 +69,11 @@ def menuVotacao():
                     votacao.resultados()
                     break
                 case 0:
-                    print('\n')
-                    menuInicial
+                    menuInicial()
+                    break
                 case _:
                     print("ERRO: opção inválidade. Tente novamente")
+                    break
 
 def menuEleitores():
     while True:
@@ -84,21 +85,21 @@ def menuEleitores():
         print('[0] Voltar')
 
         opcao = int(input("Digite a opção que deseja: "))
-
+        # redireciona a função de acordo com a opção
         match opcao:
             case 1:
-                gerenciamentoEleitores.cadastrarEleitor()
+                eleitores.cadastrarEleitor()
                 break
             case 2: 
-                gerenciamentoEleitores.removerEleitor()
+                # eleitores.removerEleitor()
                 break
             case 3:
-                gerenciamentoEleitores.editarEleitor
+                # eleitores.editarEleitor
                 break
             case 4:
-                gerenciamentoEleitores.listarEleitor()
+                # eleitores.listarEleitor()
+                break
             case 0:
-                print('\n')
                 menuGerenciamento()
             case _: 
                 print('\nOpção Inválida. Tente Novamente...\n')
@@ -113,21 +114,22 @@ def menuCandidatos():
         print('[0] Voltar')
 
         opcao = int(input("Digite a opção que deseja: "))
-
+        # redireciona a função de acordo com a opção
         match opcao:
             case 1:
-                gerenciamentoCandidatos.cadastrarCandidato()
+                candidatos.cadastrarCandidato()
                 break
             case 2: 
-                gerenciamentoCandidatos.removerCandidato()
+                candidatos.removerCandidato()
                 break
             case 3:
-                gerenciamentoCandidatos.editarCandidato
+                candidatos.editarCandidato()
                 break
             case 4:
-                gerenciamentoCandidatos.listarCandidatos()
+                candidatos.listarCandidatos()
+                break
             case 0:
-                print('\n')
                 menuGerenciamento()
+                break
             case _: 
                 print('\nOpção Inválida. Tente Novamente...\n')
