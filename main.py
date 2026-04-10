@@ -1,11 +1,14 @@
+# Desenvolvido por Carlos Liberato
 import random
 import datetime
 import menus
-
-# para instalar as bibliotecas rode no terminal: pip install -r requirements.txt
+import database.conexao as conexao
+# para instalar as bibliotecas rode no terminal: 
+# pip install -r requirements.txt
 
 def main():
-    print("====== LAD.py - Sistema de Votação Digital ======\n")
+    print("\n====== LAD.py - Sistema de Votação Digital ======")
+    conexao.conectar() # conecta com o banco de dados antes de printar o menu inicial
     menus.menuInicial()
 
 if __name__ == "__main__":
