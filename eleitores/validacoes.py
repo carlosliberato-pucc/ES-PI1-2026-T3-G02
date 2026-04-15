@@ -1,4 +1,5 @@
 # Desenvolvido por Carlos Liberato
+# Desenvolvido por Bruno Terra
 from database.conexao import conectar
 
 def verificaTitulo(titulo):
@@ -33,7 +34,30 @@ def verificaTitulo(titulo):
     return digitoVerificadores == f'{dv1}{dv2}'
 
 def verificaCPF(cpf):
-    pass
+    sequencia = cpf[:9]
+    digitoVerificadores = cpf[9:11]
+    soma1 = 0
+    multiplicador = 10
+
+    for i in sequencia:
+        soma1+=int(i) * multiplicador
+        multiplicador -= 1
+    dv1 =(soma1 * 10) %11
+    if dv1 == 10:
+        dv1 = 0
+        
+    soma2 = 0
+    multiplicador = 11
+    for i in sequencia:
+        soma2 +=int(i) * multiplicador
+        multiplicador -= 1
+
+    soma2 += dv1 * 2
+
+    dv2 = (soma2 * 10) % 11
+    if dv2 == 10:
+        dv2 = 0
+    return digitoVerificadores == f'{dv1}{dv2}'
 
 def verificacaoDeDuplicidade(documento):
     if len(documento) == 11:
