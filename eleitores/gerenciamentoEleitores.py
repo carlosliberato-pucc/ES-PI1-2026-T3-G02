@@ -40,4 +40,7 @@ def cadastrarEleitor():
         print("--ERRO: esse titulo já foi cadastrados")
         return
     
+    chave_acesso = validacoes.gerarChaveAcesso(nome)
+    print(f"Chave de acesso: {chave_acesso}")
+    
 
