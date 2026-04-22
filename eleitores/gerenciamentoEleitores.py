@@ -1,5 +1,6 @@
 # Desenvolvido por Carlos Liberato
 # Desenvolvido por Bruno Terra
+# Desenvolvido por Felipe Miranda
 from database.conexao import conectar
 from . import validacoes
 
@@ -33,9 +34,17 @@ def cadastrarEleitor():
     else:
         print('INVALIDO')
     
-    if validacoes.verificacaoDeDuplicidade(cpf):
-        print("--ERRO: esse cpf já foi cadastrados")
+    # validação do cpf
+    if not validacoes.verificaCPF(cpf):
+        print("--ERRO: CPF inválido")
         return
+
+    # validação do cpf
+    cpf_convertido = validacoes.cpf_para_letras(cpf)
+    cpf_criptografado = validacoes.criptografar_hill(cpf_convertido)
+
+    print(f"CPF criptografado: {cpf_criptografado}")
+
     if validacoes.verificacaoDeDuplicidade(titulo):
         print("--ERRO: esse titulo já foi cadastrados")
         return
