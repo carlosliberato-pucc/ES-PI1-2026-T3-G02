@@ -2,9 +2,22 @@
 # Desenvolvido por Bruno Terra
 # Desenvolvido por Felipe Miranda
 from database.conexao import conectar
+import mysql.connector
 from . import validacoes
+import eleitores.criptoCPF as criptoCPF
+import eleitores.chaveAcesso as chaveAcesso
+import eleitores.criptoChaveAcesso as criptoChaveAcesso
 
 def cadastrarEleitor():
+
+    """
+    cadastrarEleitor()
+    Parâmetros de Entrada (Args):
+    Nenhum (void). A função é interativa e obtém os dados diretamente via input().
+    Retorno (Returns):
+    None. A função encerra sua execução após o sucesso da transação ou ao encontrar uma falha de validação (usando return antecipado).
+    """
+
     conexao = conectar()
     cursor = conexao.cursor() # variavel para gerar funções do mysql
 
@@ -15,9 +28,7 @@ def cadastrarEleitor():
 
     mesarioQuestion = int(input("- O Eleitor é Mesário? (1 - SIM / 0 - NAO): "))
     perfil = 'eleitor'
-
-    flag_voto = False
-
+    
     if mesarioQuestion == 0:
         perfil = 'eleitor'
     elif mesarioQuestion == 1:
@@ -25,31 +36,41 @@ def cadastrarEleitor():
     else:
         print('--Erro: valor inválido\n')
 
+    flag_voto = False
+
     # chamando função de validação
-    if len(titulo) != 12:
-        print("--ERRO:  Título inválido, são necessários 12 dígitos.")
-    elif validacoes.verificaTitulo(titulo):
-        print("VALIDO")
-        # chamar função de criptografia
-    else:
-        print('INVALIDO')
+    if not validacoes.validaTitulo(titulo):
+        print("Cadastro cancelado: Título Inválido.")
+        return
     
     # validação do cpf
-    if not validacoes.verificaCPF(cpf):
-        print("--ERRO: CPF inválido")
+    if not validacoes.validaCPF(cpf):
+        print("Cadastro cancelado: CPF Inválido.")
         return
 
     # validação do cpf
-    cpf_convertido = validacoes.cpf_para_letras(cpf)
-    cpf_criptografado = validacoes.criptografar_hill(cpf_convertido)
-
-    print(f"CPF criptografado: {cpf_criptografado}")
-
-    if validacoes.verificacaoDeDuplicidade(titulo):
-        print("--ERRO: esse titulo já foi cadastrados")
-        return
+    cpf_convertido = criptoCPF.cpf_para_letras(cpf)
+    cpf_criptografado = criptoCPF.criptografar_hill(cpf_convertido)
     
-    chave_acesso = validacoes.gerarChaveAcesso(nome)
-    print(f"Chave de acesso: {chave_acesso}")
+    #chave de acesso
+    chave_acesso = chaveAcesso.gerarChaveAcesso(nome)
+    chave_acesso_cripto = criptoChaveAcesso.criptografar_hill(chave_acesso)
+    print(f"Chave de acesso criada: {chave_acesso}")
+
+    # insercao com o banco de dados
+    try:
+        sql = """
+            INSERT INTO eleitores 
+            (nome_eleitor, cpf, titulo_eleitor, perfil, chave_acesso, flag_voto) 
+            VALUES (%s, %s, %s, %s, %s, %s)
+            """
+        cursor.execute(sql, (nome,cpf_criptografado,titulo,perfil,chave_acesso_cripto,flag_voto))
+        conexao.commit()
+        print("Dados Cadastrados com Sucesso!")
+
+    except mysql.connector.Error as e:
+        conexao.rollback()
+        print(f"Erro ao inserir no banco: {e}")
     
+    cursor.close()
 
