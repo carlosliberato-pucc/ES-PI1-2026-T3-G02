@@ -123,3 +123,18 @@ def buscarEleitor():
             WHERE titulo_eleitor = %s
         '''
         params = (titulo,)
+
+    elif opcao == 3:
+        nome = input("Digite o nome completo ou parte do nome: ").strip()
+        if not nome:
+            print("Busca cancelada: Nome inválido.")
+            cursor.close()
+            conexao.close()
+            return
+        
+        sql = '''
+            SELECT id_eleitor, nome_eleitor, cpf, titulo_eleitor, perfil, chave_acesso, flag_voto
+            FROM eleitores
+            WHERE nome_eleitor LIKE %s
+        '''
+        params = (f'%{nome}%',)
