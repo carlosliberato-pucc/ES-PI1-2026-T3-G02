@@ -77,27 +77,14 @@ def cadastrarEleitor():
     conexao.close()
 
 def buscarEleitor():
-    """
-    buscarEleitor()
-    Permite buscar um eleitor no banco de dados por CPF, Título de Eleitor ou Nome.
-    A busca por CPF e Título utiliza criptografia para proteger os dados sensíveis.
-    Parâmetros de Entrada (Args):
-    Nenhum (void). A função é interativa e obtém os dados diretamente via input().
-    Retorno (Returns):
-    None. Exibe os resultados da busca ou mensagens de erro.
-    """
-
-    # Conecta ao banco de dados e cria cursor com retorno em dicionário para facilitar acesso aos dados
     conexao = conectar()
-    cursor = conexao.cursor(dictionary=True)
+    cursor = conexao.cursor(dictionary = True)
 
-    # Exibe o menu de opções de busca
     print("\n::: Buscar Eleitor :::\n")
     print("[1] Buscar por CPF")
     print("[2] Buscar por Título de Eleitor")
     print("[3] Buscar por Nome")
 
-    # Loop para validar entrada numérica da opção
     while True:
         try:
             opcao = int(input("Digite a opção desejada: "))
@@ -105,9 +92,7 @@ def buscarEleitor():
         except ValueError:
             print("\nERRO: digite apenas números. Tente novamente.\n")
     
-    # Opção 1: Busca por CPF
     if opcao == 1:
-        # Solicita e valida o CPF digitado
         cpf = input("Digite o CPF (somente números): ").strip()
         if not validacoes.validaCPF(cpf):
             print("Busca cancelada: CPF inválido.")
@@ -115,14 +100,26 @@ def buscarEleitor():
             conexao.close()
             return
         
-        # Converte CPF para letras e criptografa usando Cifra de Hill (para buscar no banco criptografado)
         cpf_convertido = criptoCPF.cpf_para_letras(cpf)
         cpf_criptografado = criptoCPF.criptografar_hill(cpf_convertido)
-        
-        # Prepara a query SQL para buscar eleitor pelo CPF criptografado
         sql = '''
             SELECT id_eleitor, nome_eleitor, cpf, titulo_eleitor, perfil, chave_acesso, flag_voto
             FROM eleitores
             WHERE cpf = %s
         '''
         params = (cpf_criptografado,)
+
+    elif opcao == 2:
+        titulo = input("Digite o Título De Eleitor (somente números): ").strip()
+        if not validacoes.validaTitulo(titulo):
+            print("Busca cancelada: Título inválido.")
+            cursor.close()
+            conexao.close()
+            return
+        
+        sql = '''
+            SELECT id_eleitor, nome_eleitor, cpf, titulo_eleitor, perfil, chave_acesso, flag_voto
+            FROM eleitores
+            WHERE titulo_eleitor = %s
+        '''
+        params = (titulo,)
