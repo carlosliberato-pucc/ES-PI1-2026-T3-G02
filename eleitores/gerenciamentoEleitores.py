@@ -77,14 +77,17 @@ def cadastrarEleitor():
     conexao.close()
 
 def buscarEleitor():
+    # Conecta ao banco de dados e cria um cursor que retorna resultados como dicionário
     conexao = conectar()
-    cursor = conexao.cursor(dictionary = True)
+    cursor = conexao.cursor(dictionary=True)
 
+    # Exibe o menu de opções para escolher o tipo de busca
     print("\n::: Buscar Eleitor :::\n")
     print("[1] Buscar por CPF")
     print("[2] Buscar por Título de Eleitor")
     print("[3] Buscar por Nome")
 
+    # Loop para garantir que a opção seja um número inteiro válido
     while True:
         try:
             opcao = int(input("Digite a opção desejada: "))
@@ -92,6 +95,7 @@ def buscarEleitor():
         except ValueError:
             print("\nERRO: digite apenas números. Tente novamente.\n")
     
+    # Busca por CPF
     if opcao == 1:
         cpf = input("Digite o CPF (somente números): ").strip()
         if not validacoes.validaCPF(cpf):
@@ -100,6 +104,7 @@ def buscarEleitor():
             conexao.close()
             return
         
+        # Converte o CPF para letras e criptografa usando a mesma lógica de armazenamento
         cpf_convertido = criptoCPF.cpf_para_letras(cpf)
         cpf_criptografado = criptoCPF.criptografar_hill(cpf_convertido)
         sql = '''
@@ -109,6 +114,7 @@ def buscarEleitor():
         '''
         params = (cpf_criptografado,)
 
+    # Busca por Título de Eleitor
     elif opcao == 2:
         titulo = input("Digite o Título De Eleitor (somente números): ").strip()
         if not validacoes.validaTitulo(titulo):
@@ -124,6 +130,7 @@ def buscarEleitor():
         '''
         params = (titulo,)
 
+    # Busca por Nome
     elif opcao == 3:
         nome = input("Digite o nome completo ou parte do nome: ").strip()
         if not nome:
@@ -132,6 +139,7 @@ def buscarEleitor():
             conexao.close()
             return
         
+        # Usa LIKE para permitir busca por partes do nome
         sql = '''
             SELECT id_eleitor, nome_eleitor, cpf, titulo_eleitor, perfil, chave_acesso, flag_voto
             FROM eleitores
@@ -139,12 +147,14 @@ def buscarEleitor():
         '''
         params = (f'%{nome}%',)
 
+    # Opção inválida
     else:
         print("Opção de busca inválida.")
         cursor.close()
         conexao.close()
         return
     
+    # Executa a consulta e salva os registros encontrados
     cursor.execute(sql, params)
     registros = cursor.fetchall()
 
@@ -153,6 +163,7 @@ def buscarEleitor():
     else:
         print("\nResultados da busca: ")
         for eleitor in registros:
+            # Descriptografa CPF e chave de acesso antes de mostrar
             cpf_decodificado = criptoCPF.letras_para_cpf(criptoCPF.descriptografar_hill(eleitor['cpf']))
             chave_acesso_decodificada = criptoChaveAcesso.descriptografar_hill(eleitor['chave_acesso'])
             print(f"\nID: {eleitor['id_eleitor']}")
@@ -163,5 +174,6 @@ def buscarEleitor():
             print(f"Chave de Acesso: {chave_acesso_decodificada}")
             print(f"Votou: {'Sim' if eleitor['flag_voto'] else 'Não'}")
     
+    # Fecha cursor e conexão ao final da função
     cursor.close()
     conexao.close()
