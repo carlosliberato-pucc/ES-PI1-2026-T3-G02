@@ -138,3 +138,30 @@ def buscarEleitor():
             WHERE nome_eleitor LIKE %s
         '''
         params = (f'%{nome}%',)
+
+    else:
+        print("Opção de busca inválida.")
+        cursor.close()
+        conexao.close()
+        return
+    
+    cursor.execute(sql, params)
+    registros = cursor.fetchall()
+
+    if not registros:
+        print("\nNenhum eleitor encontrado.")
+    else:
+        print("\nResultados da busca: ")
+        for eleitor in registros:
+            cpf_decodificado = criptoCPF.letras_para_cpf(criptoCPF.descriptografar_hill(eleitor['cpf']))
+            chave_acesso_decodificada = criptoChaveAcesso.descriptografar_hill(eleitor['chave_acesso'])
+            print(f"\nID: {eleitor['id_eleitor']}")
+            print(f"Nome: {eleitor['nome_eleitor']}")
+            print(f"CPF: {cpf_decodificado}")
+            print(f"Título: {eleitor['titulo_eleitor']}")
+            print(f"Perfil: {eleitor['perfil']}")
+            print(f"Chave de Acesso: {chave_acesso_decodificada}")
+            print(f"Votou: {'Sim' if eleitor['flag_voto'] else 'Não'}")
+    
+    cursor.close()
+    conexao.close()
