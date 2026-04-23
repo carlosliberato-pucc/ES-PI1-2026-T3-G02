@@ -1,6 +1,7 @@
 # Desenvolvido por Carlos Liberato
 # Desenvolvido por Bruno Terra
 # Desenvolvido por Felipe Miranda
+# Desenvolvido por Gabriel Coutinho
 from database.conexao import conectar
 import mysql.connector
 from . import validacoes
@@ -73,4 +74,20 @@ def cadastrarEleitor():
         print(f"Erro ao inserir no banco: {e}")
     
     cursor.close()
+    conexao.close()
 
+def buscarEleitor():
+    conexao = conectar()
+    cursor = conexao.cursor(dictionary = True)
+
+    print("\n::: Buscar Eleitor :::\n")
+    print("[1] Buscar por CPF")
+    print("[2] Buscar por Título de Eleitor")
+    print("[3] Buscar por Nome")
+
+    while True:
+        try:
+            opcao = int(input("Digite a opção desejada: "))
+            break
+        except ValueError:
+            print("\nERRO: digite apenas números. Tente novamente.\n")

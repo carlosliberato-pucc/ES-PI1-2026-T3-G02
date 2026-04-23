@@ -82,6 +82,7 @@ def menuEleitores():
         print('[2] Remover Eleitor')
         print('[3] Editar Dados do Eleitor')
         print('[4] Listar Eleitores')
+        print('[5] Buscar Eleitor')
         print('[0] Voltar')
 
         opcao = int(input("Digite a opção que deseja: "))
@@ -98,6 +99,9 @@ def menuEleitores():
                 break
             case 4:
                 # eleitores.listarEleitor()
+                break
+            case 5:
+                eleitores.buscarEleitor()
                 break
             case 0:
                 menuGerenciamento()
