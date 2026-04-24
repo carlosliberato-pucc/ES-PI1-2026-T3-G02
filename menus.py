@@ -94,7 +94,7 @@ def menuEleitores():
                 # eleitores.removerEleitor()
                 break
             case 3:
-                # eleitores.editarEleitor
+                eleitores.editarEleitor()
                 break
             case 4:
                 # eleitores.listarEleitor()
