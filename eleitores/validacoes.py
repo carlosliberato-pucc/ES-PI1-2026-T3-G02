@@ -1,10 +1,6 @@
 # Desenvolvido por Carlos Liberato
 # Desenvolvido por Bruno Terra
 # Desenvolvido por Felipe Miranda
-from database.conexao import conectar
-import random
-import string
-
 
 def validaTitulo(titulo):
     # Desenvolvido por Carlos Luciano
@@ -16,10 +12,6 @@ def validaTitulo(titulo):
     Retorno (Returns):
     bool: Retorna True se o título for válido (os dígitos verificadores calculados batem com os informados) ou False caso contrário.
     """
-
-    if len(titulo) != 12:
-        print("--ERRO:  Título inválido, são necessários 12 dígitos.")
-        return
 
     sequencia = titulo[:8]
     uf = titulo[8:10]
@@ -51,10 +43,6 @@ def validaTitulo(titulo):
     return digitoVerificadores == f'{dv1}{dv2}'
 
 def validaCPF(cpf):
-
-    if len(cpf) != 11:
-        print("--ERRO:  CPF inválido, são necessários 11 dígitos.")
-        return
 
     sequencia = cpf[:9]
     digitoVerificadores = cpf[9:11]
