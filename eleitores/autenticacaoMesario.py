@@ -5,6 +5,7 @@ import mysql.connector
 
 from . import criptoChaveAcesso
 from . import criptoCPF
+from . import validacoes
 
 
 def _normalizar_perfil(perfil):
@@ -25,20 +26,24 @@ def autenticarMesario():
     print("\n=== Autenticação de Mesário ===\n")
 
     titulo = input("Digite o título de eleitor: ").strip()
-    cpf_parcial = input("Digite os 4 primeiros dígitos do CPF: ").strip()
-    chave = input("Digite a chave de acesso: ").strip().upper()
-
-    if not titulo.isdigit() or len(titulo) != 12:
-        print("ERRO: título de eleitor inválido")
-        return False
-
-    if not cpf_parcial.isdigit() or len(cpf_parcial) != 4:
-        print("ERRO: informe exatamente os 4 primeiros dígitos do CPF")
-        return False
-
-    if not chave:
-        print("ERRO: chave de acesso não informada")
-        return False
+    while not validacoes.validaTitulo():
+        if not validacoes.validaTitulo(titulo):
+            print("Erro: Título Inválido. Tente Novamente...\n")
+            titulo = input("Digite o Título de Eleitor: ")
+    
+    while(True):
+        cpf_parcial = input("Digite os 4 primeiros dígitos do CPF: ").strip()
+        if not cpf_parcial.isdigit() or len(cpf_parcial) != 4:
+            print("ERRO: informe exatamente os 4 primeiros dígitos do CPF")
+        else:
+            break;
+    
+    while(True):
+        chave = input("Digite a chave de acesso: ").strip().upper()
+        if not chave:
+            print("ERRO: chave de acesso não informada")
+        else:
+            break;
 
     try:
         conexao = conectar()
