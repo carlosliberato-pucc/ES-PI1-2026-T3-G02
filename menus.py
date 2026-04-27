@@ -4,6 +4,7 @@ import eleitores.crud.cadastrar as cadastrar
 import eleitores.crud.editar as editar
 import eleitores.crud.listar as listar
 import eleitores.crud.remover as remover
+import eleitores.autenticacaoMesario as auth
 import votacao
 
 def menuInicial():
@@ -42,7 +43,8 @@ def menuVotacao():
         else:
             match opcao:
                 case 1:
-                    votacao.abrirVotacao()
+                    if auth.autenticarMesario():
+                        votacao.abrirVotacao()
                     break
                 case 2:
                     votacao.auditoria()
