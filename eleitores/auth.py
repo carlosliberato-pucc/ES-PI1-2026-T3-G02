@@ -91,3 +91,83 @@ def autenticarMesario():
             cursor.close()
         if conexao and conexao.is_connected():
             conexao.close()
+
+def autenticarEleitor():
+    """
+    Autentica um usuário.
+
+    Returns:
+        bool: True se autenticado, False caso contrário
+    """
+
+    conexao = None
+    cursor = None
+
+    print("\n=== Autenticação de Mesário ===\n")
+
+    titulo = input("Digite o título de eleitor: ").strip()
+    while not validacoes.validaTitulo():
+        if not validacoes.validaTitulo(titulo):
+            print("Erro: Título Inválido. Tente Novamente...\n")
+            titulo = input("Digite o Título de Eleitor: ")
+    
+    while(True):
+        cpf_parcial = input("Digite os 4 primeiros dígitos do CPF: ").strip()
+        if not cpf_parcial.isdigit() or len(cpf_parcial) != 4:
+            print("ERRO: informe exatamente os 4 primeiros dígitos do CPF")
+        else:
+            break;
+    
+    while(True):
+        chave = input("Digite a chave de acesso: ").strip().upper()
+        if not chave:
+            print("ERRO: chave de acesso não informada")
+        else:
+            break;
+
+    try:
+        conexao = conectar()
+        cursor = conexao.cursor()
+
+        chave_cripto = criptoChaveAcesso.criptografar_hill(chave)
+
+        query = """
+            SELECT cpf, flag_voto, chave_acesso
+            FROM eleitores
+            WHERE titulo_eleitor = %s
+        """
+        cursor.execute(query, (titulo,))
+        resultado = cursor.fetchone()
+
+        if not resultado:
+            print("ERRO: usuário não encontrado")
+            return False
+
+        cpf_cripto_db, flag_voto, chave_db = resultado
+        cpf_letras = criptoCPF.descriptografar_hill(cpf_cripto_db)
+        cpf_original = criptoCPF.letras_para_cpf(cpf_letras)
+
+        if not cpf_original.startswith(cpf_parcial):
+            print("ERRO: CPF não confere")
+            return False
+
+        if chave_cripto != chave_db:
+            print("ERRO: chave de acesso inválida")
+            return False
+
+        if not flag_voto:
+            print("ERRO: usuário ká votou")
+            return False
+
+        print("Mesário autenticado com sucesso!")
+        return True
+
+    except mysql.connector.Error as erro:
+        print(f"ERRO: falha ao autenticar mesário: {erro}")
+        return False
+
+    finally:
+        if cursor:
+            cursor.close()
+        if conexao and conexao.is_connected():
+            conexao.close()
