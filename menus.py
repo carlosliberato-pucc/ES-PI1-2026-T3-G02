@@ -4,8 +4,7 @@ import eleitores.crud.cadastrar as cadastrar
 import eleitores.crud.editar as editar
 import eleitores.crud.listar as listar
 import eleitores.crud.remover as remover
-import eleitores.autenticacaoMesario as auth
-import votacao
+import votacao.votacao as votacao
 
 def menuInicial():
     while True:
@@ -43,8 +42,7 @@ def menuVotacao():
         else:
             match opcao:
                 case 1:
-                    if auth.autenticarMesario():
-                        votacao.abrirVotacao()
+                    votacao.abrirVotacao()
                     break
                 case 2:
                     votacao.auditoria()
@@ -58,6 +56,27 @@ def menuVotacao():
                 case _:
                     print("ERRO: opção inválidade. Tente novamente")
                     break
+
+def menuOperarVotacao():
+    while True:
+        print('\n--- Operar Votação ---')
+        print("[1] Votar")
+        print("[2] Encerrar Votação")
+        # redireciona a função de acordo com a opção
+        opcao = int(input("Digite uma opção: "))
+        match opcao:
+            case 1:
+                votacao.abrirVotacao()
+                break
+            case 2:
+                votacao.auditoria()
+                break
+            case 0:
+                menuInicial()
+                break
+            case _:
+                print("ERRO: opção inválidade. Tente novamente")
+                break
 
 def menuGerenciamento():
     while True:

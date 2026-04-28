@@ -3,9 +3,9 @@
 from database.conexao import conectar
 import mysql.connector
 
-from . import criptoChaveAcesso
-from . import criptoCPF
-from . import validacoes
+from eleitores import criptoChaveAcesso
+from eleitores import criptoCPF
+from eleitores import validacoes
 
 
 def _normalizar_perfil(perfil):
@@ -26,7 +26,7 @@ def autenticarMesario():
     print("\n=== Autenticação de Mesário ===\n")
 
     titulo = input("Digite o título de eleitor: ").strip()
-    while not validacoes.validaTitulo():
+    while not validacoes.validaTitulo(titulo):
         if not validacoes.validaTitulo(titulo):
             print("Erro: Título Inválido. Tente Novamente...\n")
             titulo = input("Digite o Título de Eleitor: ")
@@ -36,14 +36,14 @@ def autenticarMesario():
         if not cpf_parcial.isdigit() or len(cpf_parcial) != 4:
             print("ERRO: informe exatamente os 4 primeiros dígitos do CPF")
         else:
-            break;
+            break
     
     while(True):
         chave = input("Digite a chave de acesso: ").strip().upper()
         if not chave:
             print("ERRO: chave de acesso não informada")
         else:
-            break;
+            break
 
     try:
         conexao = conectar()
@@ -116,14 +116,14 @@ def autenticarEleitor():
         if not cpf_parcial.isdigit() or len(cpf_parcial) != 4:
             print("ERRO: informe exatamente os 4 primeiros dígitos do CPF")
         else:
-            break;
+            break
     
     while(True):
         chave = input("Digite a chave de acesso: ").strip().upper()
         if not chave:
             print("ERRO: chave de acesso não informada")
         else:
-            break;
+            break
 
     try:
         conexao = conectar()
@@ -156,7 +156,7 @@ def autenticarEleitor():
             return False
 
         if not flag_voto:
-            print("ERRO: usuário ká votou")
+            print("ERRO: usuário já votou")
             return False
 
         print("Mesário autenticado com sucesso!")
