@@ -18,11 +18,35 @@ create table eleitores(
 
 -- Criação da tabela candidados com suas devidas informações
 create table candidatos(
-	id_candidatos int primary key,
+	id_candidato int primary key,
     nome_candidato varchar(255) not null,
     partido varchar(255) not null,
     cargo varchar(255) not null
 );
+
+INSERT INTO candidatos (id_candidato, nome_candidato, partido, cargo) VALUES
+-- PRESIDENTE (ID com 2 dígitos)
+(15, 'Dra. Beatriz Albuquerque', 'MDB', 'Presidente'),
+(22, 'Marcos Vinícius "O Reformador"', 'PL', 'Presidente'),
+
+-- GOVERNADOR (ID com 2 dígitos)
+(10, 'Engenheiro Paulo Guedes', 'REPUBLICANOS', 'Governador'),
+(13, 'Professora Sônia', 'PT', 'Governador'),
+
+-- SENADOR (ID com 3 dígitos)
+(151, 'Comandante Castro', 'MDB', 'Senador'),
+(222, 'Dona Dirce da Saúde', 'PL', 'Senador'),
+(455, 'Ricardo Menezes', 'PSDB', 'Senador'),
+
+-- DEPUTADO FEDERAL (ID com 4 dígitos)
+(1010, 'Felipe Tech', 'REPUBLICANOS', 'Deputado Federal'),
+(1313, 'Pastora Célia', 'PT', 'Deputado Federal'),
+(2020, 'Beto do Sindicato', 'PODE', 'Deputado Federal'),
+
+-- DEPUTADO ESTADUAL (ID com 5 dígitos)
+(10123, 'Zezinho do Bairro', 'REPUBLICANOS', 'Deputado Estadual'),
+(15789, 'Doutor Renato', 'MDB', 'Deputado Estadual'),
+(45000, 'Clara das Causas Sociais', 'PSDB', 'Deputado Estadual');
 
 -- Criação da tabela votos com suas devidas informações
 create table votos(

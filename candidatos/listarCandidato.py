@@ -5,13 +5,13 @@ def imprimirCandidato(numero, cargo):
     conexao = conectar()
     cursor = conexao.cursor(dictionary=True)
 
-    sql = f"SELECT * FROM candidatos WHERE id_candidato = %s AND cargo = %s;"
+    sql = f"SELECT * FROM candidatos WHERE num_candidato = %s AND cargo = %s;"
 
     cursor.execute(sql, (numero,cargo))
     candidato = cursor.fetchone()
 
     if candidato:
-        print(f"\nN° Eleitoral: {candidato['id_candidato']}")
+        print(f"\nN° Eleitoral: {candidato['num_candidato']}")
         print(f"Nome: {candidato['nome_candidato']}")
         print(f"Partido: {candidato['partido']}")
         print(f"Cargo: {candidato['cargo']}\n")
@@ -30,13 +30,13 @@ def listarVotosCandidato():
     cursor = conexao.cursor(dictionary=True)
 
     sql = """
-        SELECT n.id_candidato, 
+        SELECT n.num_candidato, 
         n.nome_candidato,
         n.cargo,
         COUNT(v.id_voto) AS quantidade
         FROM candidatos n
         LEFT JOIN votos v ON n.id_candidato = v.id_candidato
-        GROUP BY n.id_candidato, n.nome_candidato, n.cargo;
+        GROUP BY n.id_candidato, n.num_candidato, n.nome_candidato, n.cargo;
     """
 
     cursor.execute(sql)
@@ -44,11 +44,7 @@ def listarVotosCandidato():
 
     print("\n::: Histórico de Votos :::\n")
     for candidato in candidatos:
-        print(f"{candidato['id_candidato']} - {candidato['nome_candidato']}\nTotal de Votos: {candidato['quantidade']}")
-        # print(f"N° Eleitoral: {candidato['id_candidato']}")
-        # print(f"Nome: {candidato['nome_candidato']}")
-        # print(f"Cargo: {candidato['cargo']}")
-        # print(f"Qnt de Votos: {candidato['quantidade']}")
+        print(f"{candidato['num_candidato']} - {candidato['nome_candidato']}\nTotal de Votos: {candidato['quantidade']}")
         print("-" * 30)
 
     cursor.close()
