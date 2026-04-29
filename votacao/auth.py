@@ -103,10 +103,10 @@ def autenticarEleitor():
     conexao = None
     cursor = None
 
-    print("\n=== Autenticação de Mesário ===\n")
+    print("\n=== Autenticação de Eleitor ===\n")
 
     titulo = input("Digite o título de eleitor: ").strip()
-    while not validacoes.validaTitulo():
+    while not validacoes.validaTitulo(titulo):
         if not validacoes.validaTitulo(titulo):
             print("Erro: Título Inválido. Tente Novamente...\n")
             titulo = input("Digite o Título de Eleitor: ")
@@ -155,7 +155,7 @@ def autenticarEleitor():
             print("ERRO: chave de acesso inválida")
             return False
 
-        if not flag_voto:
+        if flag_voto:
             print("ERRO: usuário já votou")
             return False
 
