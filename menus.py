@@ -5,6 +5,8 @@ import eleitores.crud.editar as editar
 import eleitores.crud.listar as listar
 import eleitores.crud.remover as remover
 import votacao.votacao as votacao
+import votacao.auth as auth
+
 
 def menuInicial():
     while True:
@@ -28,34 +30,37 @@ def menuInicial():
                 print('\nOpção Inválida. Tente Novamente...\n')
 
 def menuVotacao():
-    while True:
-        print('\n--- Votação ---')
-        print("[1] Abrir sistema de votação")
-        print("[2] Auditoria do sistema de votação")
-        print("[3] Resultados da votação")
-        print("[0] Voltar")
-        # redireciona a função de acordo com a opção
-        opcao = int(input("Digite uma opção: "))
-        if opcao == 0:
-            break
 
-        else:
-            match opcao:
-                case 1:
-                    votacao.abrirVotacao()
-                    break
-                case 2:
-                    votacao.auditoria()
-                    break
-                case 3:
-                    votacao.resultados()
-                    break
-                case 0:
-                    menuInicial()
-                    break
-                case _:
-                    print("ERRO: opção inválidade. Tente novamente")
-                    break
+    if auth.autenticarMesario() == True:
+
+        while True:
+            print('\n--- Votação ---')
+            print("[1] Abrir sistema de votação")
+            print("[2] Auditoria do sistema de votação")
+            print("[3] Resultados da votação")
+            print("[0] Voltar")
+            # redireciona a função de acordo com a opção
+            opcao = int(input("Digite uma opção: "))
+            if opcao == 0:
+                break
+
+            else:
+                match opcao:
+                    case 1:
+                        votacao.abrirVotacao()
+                        break
+                    case 2:
+                        votacao.auditoria()
+                        break
+                    case 3:
+                        votacao.resultados()
+                        break
+                    case 0:
+                        menuInicial()
+                        break
+                    case _:
+                        print("ERRO: opção inválidade. Tente novamente")
+                        break
 
 def menuOperarVotacao():
     while True:
@@ -66,7 +71,7 @@ def menuOperarVotacao():
         opcao = int(input("Digite uma opção: "))
         match opcao:
             case 1:
-                votacao.abrirVotacao()
+                votacao.operarVotacao()
                 break
             case 2:
                 votacao.auditoria()

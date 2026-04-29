@@ -1,7 +1,31 @@
 from database.conexao import conectar
 import mysql.connector
 
-def listarQntCandidato():
+def imprimirCandidato(numero, cargo):
+    conexao = conectar()
+    cursor = conexao.cursor(dictionary=True)
+
+    sql = f"SELECT * FROM candidatos WHERE id_candidato = %s AND cargo = %s;"
+
+    cursor.execute(sql, (numero,cargo))
+    candidato = cursor.fetchone()
+
+    if candidato:
+        print(f"\nN° Eleitoral: {candidato['id_candidato']}")
+        print(f"Nome: {candidato['nome_candidato']}")
+        print(f"Partido: {candidato['partido']}")
+        print(f"Cargo: {candidato['cargo']}\n")
+
+        return True
+    else:
+        print(f"\nN° Eleitoral: NULO")
+        print(f"Nome: NULO")
+        print(f"Partido: NULO")
+        print(f"Cargo: NULO\n")
+
+        return False
+
+def listarVotosCandidato():
     conexao = conectar()
     cursor = conexao.cursor(dictionary=True)
 
@@ -20,10 +44,11 @@ def listarQntCandidato():
 
     print("\n::: Histórico de Votos :::\n")
     for candidato in candidatos:
-        print(f"Num Eleitoral: {candidato['id_candidato']}")
-        print(f"Nome: {candidato['nome_candidato']}")
-        print(f"Cargo: {candidato['cargo']}")
-        print(f"Qnt de Votos: {candidato['quantidade']}")
+        print(f"{candidato['id_candidato']} - {candidato['nome_candidato']}\nTotal de Votos: {candidato['quantidade']}")
+        # print(f"N° Eleitoral: {candidato['id_candidato']}")
+        # print(f"Nome: {candidato['nome_candidato']}")
+        # print(f"Cargo: {candidato['cargo']}")
+        # print(f"Qnt de Votos: {candidato['quantidade']}")
         print("-" * 30)
 
     cursor.close()
