@@ -44,6 +44,28 @@ def validaTitulo(titulo):
 
 def validaCPF(cpf):
 
+    '''Desenvolvido por Bruno Terra 
+    
+    
+    validaCPF(cpf)
+    Essa função verifica se um CPF é válido ou não usando os dígitos verificadores.
+
+    Parâmetros:
+    cpf (str): string com os 11 dígitos do CPF.
+
+    Retorno:
+    bool: retorna True se o CPF for válido, ou False se não for.
+
+    Primeiro, a função pega os 9 primeiros dígitos do CPF e separa os 2 últimos, que são os dígitos verificadores.
+
+    Depois, calcula o primeiro dígito verificador (dv1). Para isso, multiplica cada número pelos valores
+    de 10 até 2, soma tudo e aplica a conta (soma * 10) % 11. Se o resultado for 10, vira 0.
+    Em seguida, calcula o segundo dígito verificador (dv2), parecido com o primeiro,
+    mas agora os pesos vão de 11 até 2 e também soma o dv1 multiplicado por 2 no final.
+
+    Por último, compara os dígitos calculados com os que vieram no CPF. Se forem iguais, o CPF é válido.
+'''
+
     sequencia = cpf[:9]
     digitoVerificadores = cpf[9:11]
     soma1 = 0
