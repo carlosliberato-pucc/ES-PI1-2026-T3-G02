@@ -1,5 +1,6 @@
 #Desenvolvido por Carlos Liberato
 #Desenvolvido por Gabriel Coutinho
+#Desenvolvido por Bruno Terra
 import random
 import votacao.auth as auth
 import votacao.zeresima as zeresima
@@ -23,8 +24,22 @@ def gerarProtocolo():
     return protocolo
 
 
+# Desenvolvido por Bruno Terra
 def salvarVotos(votos, protocolo, titulo_eleitor):
-    # Insere os votos na tabela de votos e marca o eleitor como já tendo votado.
+    """
+    salvarVotos(votos, protocolo, titulo_eleitor)
+    Armazena os votos no banco de dados junto com o protocolo de confirmação
+    e atualiza o status do eleitor para indicar que já votou.
+
+    Parâmetros de Entrada (Args):
+    votos (list): Lista com IDs dos candidatos votados.
+    protocolo (str): Protocolo criptografado da votação.
+    titulo_eleitor (str): Título do eleitor autenticado.
+
+    Retorno (Returns):
+    bool: True se sucesso, False em caso de erro.
+    """
+
     conexao = None
     cursor = None
 
@@ -32,19 +47,35 @@ def salvarVotos(votos, protocolo, titulo_eleitor):
         conexao = conectar()
         cursor = conexao.cursor()
 
-        sql_insert = "INSERT INTO votos (id_candidato, data_hora, protocolo_confirmacao) VALUES (%s, NOW(), %s)"
-        for id_candidato in votos:
-            cursor.execute(sql_insert, (id_candidato, protocolo))
+        # comando SQL para inserir votos
+        sql = """
+        INSERT INTO votos (id_candidato, data_hora, protocolo_confirmacao)
+        VALUES (%s, NOW(), %s)
+        """
 
-        cursor.execute("UPDATE eleitores SET flag_voto = TRUE WHERE titulo_eleitor = %s", (titulo_eleitor,))
+        # salva cada voto com o mesmo protocolo
+        for id_candidato in votos:
+            cursor.execute(sql, (id_candidato, protocolo))
+
+        # atualiza eleitor como já votou
+        cursor.execute(
+            "UPDATE eleitores SET flag_voto = TRUE WHERE titulo_eleitor = %s",
+            (titulo_eleitor,)
+        )
+
+        # confirma alterações
         conexao.commit()
 
         return True
-    except Exception as erro:
-        print(f"ERRO: falha ao gravar votos: {erro}")
+
+    except Exception as e:
+        print("Erro ao salvar votos:", e)
+
         if conexao:
             conexao.rollback()
+
         return False
+
     finally:
         if cursor:
             cursor.close()
