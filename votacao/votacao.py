@@ -1,6 +1,7 @@
 #Desenvolvido por Carlos Liberato
 #Desenvolvido por Gabriel Coutinho
 #Desenvolvido por Bruno Terra
+#Desenvolvido por Nicolas Guimarães
 import random
 import votacao.auth as auth
 import votacao.zeresima as zeresima
@@ -139,5 +140,109 @@ def gerarDataHora():
     agora = datetime.now()
     print(f"Data e Hora: {agora}")
 
+
 def encerrarVotacao():
-    pass
+
+    """
+
+    Realiza o encerramento oficial da votação mediante autenticação do mesário
+
+    e dupla confirmação de identidade.
+
+
+
+    O fluxo segue os requisitos RF002.01.07.01 a RF002.01.07.06:
+
+    1. Autentica o mesário (título, CPF parcial e chave de acesso).
+
+    2. Solicita confirmação explícita de encerramento (Sim/Não).
+
+    3. Exige uma segunda inserção da chave de acesso como protocolo final.
+
+    4. Encerra a votação definitivamente se todas as validações forem aprovadas.
+
+
+
+    Args:
+
+        Nenhum.
+
+
+
+    Returns:
+
+        bool: True se a votação foi encerrada com sucesso, False caso contrário.
+
+    """
+
+    print("\n=== Encerramento da Votação ===\n")
+        
+
+    # Autentica o mesário
+    if not auth.autenticarMesario():
+        print("ERRO: Encerramento cancelado. Falha na autenticação do mesário.")
+        return False
+
+    # Pergunta de confirmação
+    print("\nDeseja realmente encerrar a votação? (Sim/Não)")
+    confirmacao = input("Digite sua opção: ").strip().lower()
+
+    # Caso "Não", cancela e retorna ao menu anterior
+    if confirmacao not in ("sim", "s"):
+        print("Encerramento cancelado. Retornando ao menu...")
+        return False
+
+    # Segunda inserção da chave de acesso como dupla confirmação
+    print("\nConfirmação final necessária.")
+    chave_confirmacao = input("Digite novamente sua chave de acesso: ").strip().upper()
+
+    if not chave_confirmacao:
+        print("ERRO: Chave de acesso não informada. Encerramento cancelado.")
+        return False
+
+    # Valida a segunda chave e encerra definitivamente
+    chave_cripto = criptoChaveAcesso.criptografar_hill(chave_confirmacao)
+
+    conexao = None
+    cursor = None
+
+    try:
+        # Conecta ao banco de dados para validar a segunda chave
+
+        conexao = conectar()
+        cursor = conexao.cursor()
+
+        # Busca a chave criptografada no banco para confirmar a identidade do mesário
+
+        cursor.execute(
+            "SELECT chave_acesso FROM eleitores WHERE chave_acesso = %s",
+            (chave_cripto,)
+        )
+        resultado = cursor.fetchone()
+
+        # Se a chave não for encontrada, cancela o encerramento
+
+        if not resultado:
+            print("ERRO: Chave de acesso incorreta. Encerramento cancelado.")
+            return False
+
+        # Encerramento confirmado com sucesso
+
+        print("\n" + "=" * 40)
+        print("  VOTAÇÃO ENCERRADA COM SUCESSO!")
+        print("=" * 40)
+        gerarDataHora()
+        return True
+
+    except Exception as e:
+
+        print(f"ERRO ao encerrar votação: {e}")
+        return False
+
+    finally:
+        if cursor:
+            cursor.close()
+
+        if conexao and conexao.is_connected():
+            conexao.close()
+    
