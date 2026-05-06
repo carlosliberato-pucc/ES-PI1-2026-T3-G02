@@ -97,7 +97,7 @@ def autenticarEleitor():
     Autentica um usuário.
 
     Returns:
-        bool: True se autenticado, False caso contrário
+        str or None: título de eleitor se autenticado, None caso contrário
     """
 
     conexao = None
@@ -141,7 +141,7 @@ def autenticarEleitor():
 
         if not resultado:
             print("ERRO: usuário não encontrado")
-            return False
+            return None
 
         cpf_cripto_db, flag_voto, chave_db = resultado
         cpf_letras = criptoCPF.descriptografar_hill(cpf_cripto_db)
@@ -149,22 +149,23 @@ def autenticarEleitor():
 
         if not cpf_original.startswith(cpf_parcial):
             print("ERRO: CPF não confere")
-            return False
+            return None
 
         if chave_cripto != chave_db:
             print("ERRO: chave de acesso inválida")
-            return False
+            return None
 
         if flag_voto:
             print("ERRO: usuário já votou")
-            return False
+            return None
 
-        print("Mesário autenticado com sucesso!")
-        return True
+        print("Eleitor autenticado com sucesso!")
+        # Retorna o título do eleitor para o fluxo de votação continuar.
+        return titulo
 
     except mysql.connector.Error as erro:
-        print(f"ERRO: falha ao autenticar mesário: {erro}")
-        return False
+        print(f"ERRO: falha ao autenticar eleitor: {erro}")
+        return None
 
     finally:
         if cursor:
