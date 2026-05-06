@@ -74,7 +74,7 @@ def menuOperarVotacao():
                 votacao.operarVotacao()
                 break
             case 2:
-                votacao.auditoria()
+                votacao.encerrarVotacao()
                 break
             case 0:
                 menuInicial()
