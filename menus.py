@@ -74,8 +74,10 @@ def menuOperarVotacao():
                 votacao.operarVotacao()
                 break
             case 2:
-                votacao.encerrarVotacao()
-                break
+                if votacao.encerrarVotacao():
+                    return
+                else:
+                    continue
             case 0:
                 menuInicial()
                 break

@@ -134,6 +134,7 @@ def operarVotacao():
             print("Voto registrado com sucesso.")
             print(f"Protocolo de confirmação (criptografado): {protocolo}")
         gerarDataHora()
+        menus.menuOperarVotacao()
 
 
 def gerarDataHora():
@@ -184,11 +185,16 @@ def encerrarVotacao():
         return False
 
     # Pergunta de confirmação
-    print("\nDeseja realmente encerrar a votação? (Sim/Não)")
-    confirmacao = input("Digite sua opção: ").strip().lower()
+    print("\nDeseja realmente encerrar a votação?")
+    print("[1] Sim")
+    print("[0] Não")
+    try:
+        confirmacao = int(input("Digite sua opção: "))
+    except ValueError:
+        print("ERRO: Opção inválida. Encerramento cancelado.")
+        return False
 
-    # Caso "Não", cancela e retorna ao menu anterior
-    if confirmacao not in ("sim", "s"):
+    if confirmacao != 1:
         print("Encerramento cancelado. Retornando ao menu...")
         return False
 
