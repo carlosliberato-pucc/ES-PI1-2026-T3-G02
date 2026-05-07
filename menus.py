@@ -27,26 +27,26 @@ def menuInicial():
                 print('\nOpção Inválida. Tente Novamente...\n')
 
 def menuVotacao():
-    if auth.autenticarMesario():
-        while True:
-            print('\n--- Votação ---')
-            print("[1] Abrir sistema de votação")
-            print("[2] Auditoria do sistema de votação")
-            print("[3] Resultados da votação")
-            print("[0] Voltar")
+    while True:
+        print('\n--- Votação ---')
+        print("[1] Abrir sistema de votação")
+        print("[2] Auditoria do sistema de votação")
+        print("[3] Resultados da votação")
+        print("[0] Voltar")
 
-            opcao = int(input("Digite uma opção: "))
-            match opcao:
-                case 0:
-                    return  # volta para menuInicial
-                case 1:
+        opcao = int(input("Digite uma opção: "))
+        match opcao:
+            case 0:
+                return  # volta para menuInicial
+            case 1:
+                if auth.autenticarMesario():
                     votacao.abrirVotacao()
-                case 2:
-                    votacao.auditoria()
-                case 3:
-                    votacao.resultados()
-                case _:
-                    print("ERRO: opção inválida. Tente novamente")
+            case 2:
+                votacao.auditoria()
+            case 3:
+                votacao.resultados()
+            case _:
+                print("ERRO: opção inválida. Tente novamente")
 
 def menuOperarVotacao():
     while True:
