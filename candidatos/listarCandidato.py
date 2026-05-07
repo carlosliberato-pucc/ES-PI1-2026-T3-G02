@@ -31,10 +31,10 @@ def imprimirCandidato(numero, cargo):
 
         return candidato
     else:
-        print(f"\nN° Eleitoral: NULO")
-        print(f"Nome: NULO")
-        print(f"Partido: NULO")
-        print(f"Cargo: NULO\n")
+        print(f"\nN° Eleitoral: --ERRO")
+        print(f"Nome: --ERRO")
+        print(f"Partido: --ERRO")
+        print(f"Cargo: --ERRO\n")
 
         return None
 

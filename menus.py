@@ -6,7 +6,7 @@ import eleitores.crud.listar as listar
 import eleitores.crud.remover as remover
 import votacao.votacao as votacao
 import votacao.auth as auth
-
+import sys
 
 def menuInicial():
     while True:
@@ -24,7 +24,8 @@ def menuInicial():
             case 2:
                 menuVotacao()
                 break
-            case 0: 
+            case 0:
+                sys.exit()
                 return
             case _: 
                 print('\nOpção Inválida. Tente Novamente...\n')
