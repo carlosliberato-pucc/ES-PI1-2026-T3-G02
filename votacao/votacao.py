@@ -97,35 +97,38 @@ def operarVotacao():
         votos_confirmados = []
 
         for cargo in cargos:
-            while True:
-                try:
-                    print(f"\n{cargo.upper()}")
-                    voto = int(input("Digite o número: "))
-                    candidato = candidatos.imprimirCandidato(voto, cargo)
-                    if not candidato:
-                        print("--Erro: Número de candidato inválido. Tente novamente.")
-                        continue
-                    break
-                except ValueError:
-                    print("--Erro: Entrada Inválida. Tente Novamente..")
-
-            while True:
-                print("1 - [CONFIRMAR]")
-                print("0 - [CANCELAR]")
-
-                try:
-                    opcao = int(input("Digite a opção: "))
-                    if opcao == 1:
-                        votos_confirmados.append(candidato['id_candidato'])
-                        print("Voto Confirmado")
+            confirmacao = False
+            while not confirmacao:
+                while True:
+                    try:
+                        print(f"\n{cargo.upper()}")
+                        voto = int(input("Digite o número: "))
+                        candidato = candidatos.imprimirCandidato(voto, cargo)
+                        if not candidato:
+                            print("--Erro: Número de candidato inválido. Tente novamente.")
+                            continue
                         break
-                    elif opcao == 0:
-                        print("Voto Cancelado")
-                        break
-                    else:
-                        print("\nOpção Inválida. Tente Novamente")
-                except ValueError:
-                    print("--Erro: Digite 0 ou 1.")
+                    except ValueError:
+                        print("--Erro: Entrada Inválida. Tente Novamente..")
+
+                while True:
+                    print("1 - [CONFIRMAR]")
+                    print("0 - [CANCELAR]")
+
+                    try:
+                        opcao = int(input("Digite a opção: "))
+                        if opcao == 1:
+                            confirmacao = True
+                            votos_confirmados.append(candidato['id_candidato'])
+                            print("Voto Confirmado")
+                            break
+                        elif opcao == 0:
+                            print("Voto Cancelado")
+                            break
+                        else:
+                            print("\nOpção Inválida. Tente Novamente")
+                    except ValueError:
+                        print("--Erro: Digite 0 ou 1.")
 
         print("\n")
         # Após confirmar todos os cargos, gera o protocolo e salva o registro.
@@ -134,7 +137,6 @@ def operarVotacao():
             print("Voto registrado com sucesso.")
             print(f"Protocolo de confirmação (criptografado): {protocolo}")
         gerarDataHora()
-
 
 def gerarDataHora():
     agora = datetime.now()
@@ -184,11 +186,16 @@ def encerrarVotacao():
         return False
 
     # Pergunta de confirmação
-    print("\nDeseja realmente encerrar a votação? (Sim/Não)")
-    confirmacao = input("Digite sua opção: ").strip().lower()
+    print("\nDeseja realmente encerrar a votação?")
+    print("[1] Sim")
+    print("[0] Não")
+    try:
+        confirmacao = int(input("Digite sua opção: "))
+    except ValueError:
+        print("ERRO: Opção inválida. Encerramento cancelado.")
+        return False
 
-    # Caso "Não", cancela e retorna ao menu anterior
-    if confirmacao not in ("sim", "s"):
+    if confirmacao != 1:
         print("Encerramento cancelado. Retornando ao menu...")
         return False
 
