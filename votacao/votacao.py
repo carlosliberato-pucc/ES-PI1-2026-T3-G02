@@ -137,8 +137,6 @@ def operarVotacao():
             print("Voto registrado com sucesso.")
             print(f"Protocolo de confirmação (criptografado): {protocolo}")
         gerarDataHora()
-        menus.menuOperarVotacao()
-
 
 def gerarDataHora():
     agora = datetime.now()
@@ -241,7 +239,7 @@ def encerrarVotacao():
         print("  VOTAÇÃO ENCERRADA COM SUCESSO!")
         print("=" * 40)
         gerarDataHora()
-        menus.menuVotacao()
+        return True
 
     except Exception as e:
 
