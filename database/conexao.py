@@ -10,7 +10,7 @@ def conectar():
         conexao = mysql.connector.connect(
             host = "localhost",
             user = "root",
-            password = "Escol@20",
+            password = "Nicolas2020",
             database = "ladpy"
         )
         if conexao.is_connected():
