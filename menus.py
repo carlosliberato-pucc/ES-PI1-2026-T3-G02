@@ -6,6 +6,7 @@ import eleitores.crud.listar as listar
 import eleitores.crud.remover as remover
 import votacao.votacao as votacao
 import votacao.auth as auth
+import votacao.auditoria as auditoria
 import sys
 
 def menuInicial():
@@ -42,7 +43,7 @@ def menuVotacao():
                 if auth.autenticarMesario():
                     votacao.abrirVotacao()
             case 2:
-                votacao.auditoria()
+                menuAuditoria()
             case 3:
                 votacao.resultados()
             case _:
@@ -93,3 +94,23 @@ def menuGerenciamento():
                 buscar.buscarEleitor()
             case _:
                 print('\nOpção Inválida. Tente Novamente...\n')
+
+
+def menuAuditoria():
+
+    while True:
+        print('\n--- Auditoria ---')
+        print('[1] Exibição de Logs de Ocorrências')
+        print('[2] Exibição de Protocolos de Votação')
+        print('[0] Voltar')
+
+        opcao = int(input("Digite uma opção: "))
+        match opcao:
+            case 0:
+                return
+            case 1:
+                auditoria.exibirLogs()
+            case 2:
+                auditoria.exibirProtocolos()
+            case _:
+                print("ERRO: opção inválida. Tente novamente")
