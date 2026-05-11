@@ -23,29 +23,37 @@ def removerEleitor():
         return
     
     #criptografa o cpf antes de ser usado no banco
-    cpf_cripto = criptoCPF.criptoCPF(cpf)
-
+    cpf_letras = criptoCPF.cpf_para_letras(cpf)
+    cpf_cripto = criptoCPF.criptografar_hill(cpf_letras)
+    print(cpf_cripto)
     #agora ocorre a verificação se existe
-    cursor.execute("SELECT  * FROM eleitores WHERE cpf = %s", cpf(cpf_cripto,))
+    cursor.execute(
+        "SELECT * FROM eleitores WHERE cpf = %s",
+        (cpf_cripto,)
+    )
+
     eleitor = cursor.fetchone()
+    
 
     if eleitor is None:
-
         print("Eleitor não encontrado")
-        menus.menuGerenciamento()
+        
         return
     
     #confirmação da remoção do eleitor
     confirmacao = input("Tem certeza que deseja remover esse eleitor: (s/n)")
 
-    if confirmacao.lower != 's':
+    if confirmacao.lower() != 's':
         print("Confirmação cancelada")
         menus.menuGerenciamento()
         return
     
     #remove o eleitor
 
-    cursor.execute("DELETE FROM eleitores WHERE CPF = %s", cpf_cripto)
+    cursor.execute(
+        "DELETE FROM eleitores WHERE cpf = %s",
+        (cpf_cripto,)
+)
     conexao.commit()
 
 
