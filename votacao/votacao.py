@@ -85,7 +85,6 @@ def salvarVotos(votos, protocolo, titulo_eleitor):
 
 def operarVotacao():
 
-    cargos = ["Deputado Estadual", "Deputado Federal", "Senador", "Governador", "Presidente"]
     titulo_eleitor = auth.autenticarEleitor()
 
     if titulo_eleitor:
@@ -95,43 +94,40 @@ def operarVotacao():
         print(':'*29)
 
         votos_confirmados = []
+        confirmacao = False
+        while not confirmacao:
+            while True:
+                try:
+                    voto = int(input("Digite o número: "))
+                    candidato = candidatos.imprimirCandidato(voto)
+                    if not candidato:
+                        print("--Erro: Número de candidato inválido. Tente novamente.")
+                        continue
+                    break
+                except ValueError:
+                    print("--Erro: Entrada Inválida. Tente Novamente..")
 
-        for cargo in cargos:
-            confirmacao = False
-            while not confirmacao:
-                while True:
-                    try:
-                        print(f"\n{cargo.upper()}")
-                        voto = int(input("Digite o número: "))
-                        candidato = candidatos.imprimirCandidato(voto, cargo)
-                        if not candidato:
-                            print("--Erro: Número de candidato inválido. Tente novamente.")
-                            continue
+            while True:
+                print("1 - [CONFIRMAR]")
+                print("0 - [CANCELAR]")
+
+                try:
+                    opcao = int(input("Digite a opção: "))
+                    if opcao == 1:
+                        confirmacao = True
+                        votos_confirmados.append(candidato['id_candidato'])
+                        print("Voto Confirmado")
                         break
-                    except ValueError:
-                        print("--Erro: Entrada Inválida. Tente Novamente..")
-
-                while True:
-                    print("1 - [CONFIRMAR]")
-                    print("0 - [CANCELAR]")
-
-                    try:
-                        opcao = int(input("Digite a opção: "))
-                        if opcao == 1:
-                            confirmacao = True
-                            votos_confirmados.append(candidato['id_candidato'])
-                            print("Voto Confirmado")
-                            break
-                        elif opcao == 0:
-                            print("Voto Cancelado")
-                            break
-                        else:
-                            print("\nOpção Inválida. Tente Novamente")
-                    except ValueError:
-                        print("--Erro: Digite 0 ou 1.")
+                    elif opcao == 0:
+                        print("Voto Cancelado")
+                        break
+                    else:
+                        print("\nOpção Inválida. Tente Novamente")
+                except ValueError:
+                    print("--Erro: Digite 0 ou 1.")
 
         print("\n")
-        # Após confirmar todos os cargos, gera o protocolo e salva o registro.
+        # Após confirmar tudo, gera o protocolo e salva o registro.
         protocolo = gerarProtocolo()
         if salvarVotos(votos_confirmados, protocolo, titulo_eleitor):
             print("Voto registrado com sucesso.")
