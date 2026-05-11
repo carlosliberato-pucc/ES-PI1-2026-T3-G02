@@ -17,5 +17,6 @@ def conectar():
             return conexao  
     except Error as e:
         print("--Erro ao conectar ao banco de dados")
+        print(e)
         sys.exit()
     
