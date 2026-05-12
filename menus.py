@@ -9,9 +9,14 @@ import votacao.auth as auth
 import votacao.auditoria as auditoria
 import candidatos.cadastrarCandidato as cadastrarCandidato
 import sys
+from utils import limparTela
+
+
+
 
 def menuInicial():
     while True:
+        limparTela()
         print('\n--- Menu Inicial ---')
         print('[1] Gerenciamento')
         print('[2] Votação')
@@ -31,6 +36,7 @@ def menuInicial():
 
 def menuGerenciamento():
     while True:
+        limparTela()
         print('\n--- Gerenciamento ---')
         print("[1] Gerenciamento de Eleitores")
         print("[2] Gerenciamento de Candidatos")
@@ -47,6 +53,7 @@ def menuGerenciamento():
                 menuGerenciamentoCandidatos()
 def menuVotacao():
     while True:
+        limparTela()
         print('\n--- Votação ---')
         print("[1] Abrir sistema de votação")
         print("[2] Auditoria do sistema de votação")
@@ -69,6 +76,7 @@ def menuVotacao():
 
 def menuOperarVotacao():
     while True:
+        limparTela()
         print('\n--- Operar Votação ---')
         print("[1] Votar")
         print("[2] Encerrar Votação")
@@ -88,6 +96,7 @@ def menuOperarVotacao():
 
 def menuGerenciamentoEleitores():
     while True:
+        
         print('\n--- Gerenciamento de Eleitores ---')
         print('[1] Cadastrar Eleitor')
         print('[2] Remover Eleitor')
@@ -118,6 +127,7 @@ def menuGerenciamentoEleitores():
 
 def menuGerenciamentoCandidatos():
     while True:
+        limparTela()
         print('\n--- Gerenciamento de Candidatos ---')
         print('[1] Cadastrar Candidato')
         print('[0] voltar')
@@ -134,6 +144,7 @@ def menuGerenciamentoCandidatos():
 def menuAuditoria():
 
     while True:
+        limparTela()
         print('\n--- Auditoria ---')
         print('[1] Exibição de Logs de Ocorrências')
         print('[2] Exibição de Protocolos de Votação')
@@ -153,6 +164,7 @@ def menuAuditoria():
 def menuCandidatos():
 
     while True:
+        limparTela()
         print('\n--- Gerenciamento de Candidatos---')
         print('[1] Cadastrar Candidato')
         print('[0] Voltar')
@@ -165,3 +177,8 @@ def menuCandidatos():
                 cadastrarCandidato.cadastrarCandidato()
             case _:
                 print("ERRO: opção inválida. Tente novamente")
+
+
+
+
+
