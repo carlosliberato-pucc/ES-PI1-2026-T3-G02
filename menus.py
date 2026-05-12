@@ -7,12 +7,13 @@ import eleitores.crud.remover as remover
 import votacao.votacao as votacao
 import votacao.auth as auth
 import votacao.auditoria as auditoria
+import candidatos.cadastrarCandidato as cadastrarCandidato
 import sys
 
 def menuInicial():
     while True:
         print('\n--- Menu Inicial ---')
-        print('[1] Gerenciamento de Eleitores')
+        print('[1] Gerenciamento')
         print('[2] Votação')
         print('[0] Fechar')
 
@@ -27,6 +28,23 @@ def menuInicial():
             case _:
                 print('\nOpção Inválida. Tente Novamente...\n')
 
+
+def menuGerenciamento():
+    while True:
+        print('\n--- Gerenciamento ---')
+        print("[1] Gerenciamento de Eleitores")
+        print("[2] Gerenciamento de Candidatos")
+        print("[0] Voltar")
+
+        opcao = int(input("Digite uma opção: "))
+        match opcao:
+            case 0:
+                return 
+                #volta ao menu inicial
+            case 1:
+                menuGerenciamentoEleitores()
+            case 2:
+                menuGerenciamentoCandidatos()
 def menuVotacao():
     while True:
         print('\n--- Votação ---')
@@ -68,7 +86,7 @@ def menuOperarVotacao():
             case _:
                 print("ERRO: opção inválida. Tente novamente")
 
-def menuGerenciamento():
+def menuGerenciamentoEleitores():
     while True:
         print('\n--- Gerenciamento de Eleitores ---')
         print('[1] Cadastrar Eleitor')
@@ -76,6 +94,7 @@ def menuGerenciamento():
         print('[3] Editar Dados do Eleitor')
         print('[4] Listar Eleitores')
         print('[5] Buscar Eleitor')
+        print('[6] Gerenciamento de Candidato')
         print('[0] Voltar')
 
         opcao = int(input("Digite a opção que deseja: "))
@@ -92,8 +111,24 @@ def menuGerenciamento():
                 listar.listarEleitor()
             case 5:
                 buscar.buscarEleitor()
+            case 6:
+                menuCandidatos()
             case _:
                 print('\nOpção Inválida. Tente Novamente...\n')
+
+def menuGerenciamentoCandidatos():
+    while True:
+        print('\n--- Gerenciamento de Candidatos ---')
+        print('[1] Cadastrar Candidato')
+        print('[0] voltar')
+        opcao = int(input("Digite uma opção: "))
+        match opcao:
+            case 0:
+                return
+            case 1:
+                cadastrarCandidato.cadastrarCandidato()
+            case _:
+                print('\nOpção inválida. Tente novamente')
 
 
 def menuAuditoria():
@@ -112,5 +147,21 @@ def menuAuditoria():
                 auditoria.exibirLogs()
             case 2:
                 auditoria.exibirProtocolos()
+            case _:
+                print("ERRO: opção inválida. Tente novamente")
+
+def menuCandidatos():
+
+    while True:
+        print('\n--- Gerenciamento de Candidatos---')
+        print('[1] Cadastrar Candidato')
+        print('[0] Voltar')
+        
+        opcao = int(input("Digite uma opção: "))
+        match opcao:
+            case 0:
+                return
+            case 1:
+                cadastrarCandidato.cadastrarCandidato()
             case _:
                 print("ERRO: opção inválida. Tente novamente")
