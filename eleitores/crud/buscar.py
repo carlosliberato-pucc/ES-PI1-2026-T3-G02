@@ -112,4 +112,4 @@ def buscarEleitor():
     cursor.close()
     conexao.close()
 
-    menus.menuGerenciamento()
+    

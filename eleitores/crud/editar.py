@@ -95,4 +95,4 @@ def editarEleitor():
     cursor.close()
     conexao.close()
 
-    menus.menuGerenciamento()
+    

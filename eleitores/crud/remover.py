@@ -63,4 +63,4 @@ def removerEleitor():
 
     conexao.close()
 
-    menus.menuGerenciamento()
+    

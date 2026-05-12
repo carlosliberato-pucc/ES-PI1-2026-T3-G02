@@ -79,4 +79,4 @@ def cadastrarEleitor():
     cursor.close()
     conexao.close()
 
-    menus.menuGerenciamento()
+    

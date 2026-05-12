@@ -45,4 +45,4 @@ def listarEleitor():
     cursor.close()
     conexao.close()
 
-    menus.menuGerenciamento()
+    
