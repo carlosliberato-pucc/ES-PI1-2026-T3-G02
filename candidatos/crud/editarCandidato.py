@@ -17,7 +17,7 @@ def editarCandidato() -> None:
     Returns:
         None
     """
-    print("\n===== EDITAR CANDIDATO =====\n")
+    print("\n--- Editar Candidato ---")
 
     conexao = conectar()
     cursor = conexao.cursor(dictionary=True)
