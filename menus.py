@@ -7,7 +7,8 @@ import eleitores.crud.remover as remover
 import votacao.votacao as votacao
 import votacao.auth as auth
 import votacao.auditoria as auditoria
-import candidatos.cadastrarCandidato as cadastrarCandidato
+import candidatos.crud.cadastrarCandidato as cadastrarCandidato
+import candidatos.crud.editarCandidato as editarCandidato
 import sys
 from utils import limparTela
 
@@ -131,6 +132,7 @@ def menuGerenciamentoCandidatos():
         limparTela()
         print('\n--- Gerenciamento de Candidatos ---')
         print('[1] Cadastrar Candidato')
+        print('[2] Editar Candidato')
         print('[0] voltar')
         opcao = int(input("Digite uma opção: "))
         match opcao:
@@ -138,6 +140,8 @@ def menuGerenciamentoCandidatos():
                 return
             case 1:
                 cadastrarCandidato.cadastrarCandidato()
+            case 2:
+                editarCandidato.editarCandidato()
             case _:
                 print('\nOpção inválida. Tente novamente')
 
