@@ -22,6 +22,8 @@ def editarCandidato() -> None:
     conexao = conectar()
     cursor = conexao.cursor(dictionary=True)
 
+ 
+ 
     # Busca o candidato pelo número para confirmar que ele existe
     while True:
         numero_str = input("- Digite o número de votação do candidato: ").strip()
@@ -32,17 +34,20 @@ def editarCandidato() -> None:
 
 
 
+  
     cursor.execute("SELECT * FROM candidatos WHERE id_candidato = %s", (numero,))
     candidato = cursor.fetchone()
 
 
 
     if not candidato:
+   
         print("Candidato não encontrado.")
         cursor.close()
         conexao.close()
         return
 
+ 
     print(f"\nCandidato encontrado: {candidato['nome_candidato']} | Partido: {candidato['partido']}")
     print("Deixe em branco para manter o valor atual.\n")
 
@@ -50,6 +55,7 @@ def editarCandidato() -> None:
 
     # Coleta os novos dados, mantendo os antigos se deixado em branco
    
+  
     novo_nome = input(f"Novo nome [{candidato['nome_candidato']}]: ").strip()
     if not novo_nome:
         novo_nome = candidato['nome_candidato']
@@ -69,6 +75,7 @@ def editarCandidato() -> None:
             return
         novo_numero = int(novo_numero_str)
 
+   
         # verifica se o novo número já está em uso por outro candidato
         if novo_numero != candidato['id_candidato']:
             cursor.execute("SELECT id_candidato FROM candidatos WHERE id_candidato = %s", (novo_numero,))
@@ -78,6 +85,7 @@ def editarCandidato() -> None:
                 conexao.close()
                 return
 
+ 
     # Atualiza no banco de dados
     try:
         sql = """

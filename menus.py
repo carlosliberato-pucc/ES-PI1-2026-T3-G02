@@ -8,9 +8,10 @@ import votacao.votacao as votacao
 import votacao.auth as auth
 import votacao.auditoria as auditoria
 import candidatos.crud.cadastrarCandidato as cadastrarCandidato
+import candidatos.crud.removerCandidato as removerCandidato
 import candidatos.crud.editarCandidato as editarCandidato
-import candidatos.crud.buscarCandidato as buscarCandidato
 import candidatos.crud.listarCandidatos as listarCandidatos
+import candidatos.crud.buscarCandidato as buscarCandidato
 import sys
 from utils import limparTela
 
@@ -134,9 +135,10 @@ def menuGerenciamentoCandidatos():
         
         print('\n--- Gerenciamento de Candidatos ---')
         print('[1] Cadastrar Candidato')
-        print('[2] Editar Candidato')
-        print('[3] Buscar Candidatos')
+        print('[2] Remover Candidato')
+        print('[3] Editar Candidato')
         print('[4] Listar Candidatos')
+        print('[5] Buscar Candidato')
         print('[0] voltar')
         opcao = int(input("Digite uma opção: "))
         match opcao:
@@ -145,11 +147,14 @@ def menuGerenciamentoCandidatos():
             case 1:
                 cadastrarCandidato.cadastrarCandidato()
             case 2:
-                editarCandidato.editarCandidato()
+                removerCandidato.removerCandidato()
             case 3:
-                buscarCandidato.buscarCandidato()
+                editarCandidato.editarCandidato()
             case 4:
                 listarCandidatos.listarCandidatos()
+            case 5:
+                buscarCandidato.buscarCandidato()
+
             case _:
                 print('\nOpção inválida. Tente novamente')
 
