@@ -100,7 +100,7 @@ def menuOperarVotacao():
 
 def menuGerenciamentoEleitores():
     while True:
-        
+
         print('\n--- Gerenciamento de Eleitores ---')
         print('[1] Cadastrar Eleitor')
         print('[2] Remover Eleitor')
@@ -108,6 +108,8 @@ def menuGerenciamentoEleitores():
         print('[4] Listar Eleitores')
         print('[5] Buscar Eleitor')
         print('[0] Voltar')
+
+
 
         opcao = int(input("Digite a opção que deseja: "))
         match opcao:
@@ -123,10 +125,10 @@ def menuGerenciamentoEleitores():
                 listar.listarEleitor()
             case 5:
                 buscar.buscarEleitor()
-            case 6:
-                menuCandidatos()
             case _:
                 print('\nOpção Inválida. Tente Novamente...\n')
+
+
 
 def menuGerenciamentoCandidatos():
     while True:
@@ -160,7 +162,8 @@ def menuGerenciamentoCandidatos():
 def menuAuditoria():
 
     while True:
-        limparTela()
+
+
         print('\n--- Auditoria ---')
         print('[1] Exibição de Logs de Ocorrências')
         print('[2] Exibição de Protocolos de Votação')
@@ -180,7 +183,8 @@ def menuAuditoria():
 def menuCandidatos():
 
     while True:
-        limparTela()
+        
+        
         print('\n--- Gerenciamento de Candidatos---')
         print('[1] Cadastrar Candidato')
         print('[0] Voltar')
