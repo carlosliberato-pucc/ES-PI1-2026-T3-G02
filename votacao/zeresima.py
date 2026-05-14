@@ -1,6 +1,6 @@
 from database.conexao import conectar
 import mysql.connector
-import candidatos.listarCandidato as listarCandidatos
+import candidatos.crud.listarCandidatos as listarCandidatos
 
 def zeresima():
     

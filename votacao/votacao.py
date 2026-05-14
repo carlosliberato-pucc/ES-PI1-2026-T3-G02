@@ -6,7 +6,7 @@ import random
 import votacao.auth as auth
 import votacao.zeresima as zeresima
 import menus as menus
-import candidatos.listarCandidato as candidatos
+import candidatos.crud.listarCandidatos as candidatos
 from database.conexao import conectar
 from eleitores import criptoChaveAcesso
 from datetime import datetime
