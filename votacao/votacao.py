@@ -5,6 +5,7 @@
 import random
 import votacao.auth as auth
 import votacao.zeresima as zeresima
+import votacao.criptoProtocolo as criptoProtocolo
 import menus as menus
 import candidatos.crud.listarCandidatos as candidatos
 from database.conexao import conectar
@@ -17,15 +18,24 @@ def abrirVotacao():
 
     menus.menuOperarVotacao()
 
+#Desenvolvido por Gabriel Coutinho
 def gerarProtocolo(numero_candidato):
-    # Gera o protocolo original no formato definido pelo escopo e aplica a cifra de Hill.
+    # Gera o protocolo original no formato definido pelo escopo.
     # Formato original: V + 2 letras aleatórias + 26 + número do candidato (2 dígitos) + 5 dígitos aleatórios.
     letras = ''.join(random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ') for _ in range(2))
     candidato_str = str(numero_candidato).zfill(2)
     digitos_aleatorios = ''.join(str(random.randint(0, 9)) for _ in range(5))
-    codigo = f"V{letras}26{candidato_str}{digitos_aleatorios}"
-    protocolo = criptoChaveAcesso.criptografar_hill(codigo)
-    return protocolo
+    return f"V{letras}26{candidato_str}{digitos_aleatorios}"
+
+
+def criptografarProtocolo(protocolo):
+    # Criptografa o protocolo de votação usando a cifra de Hill específica para protocolo.
+    return criptoProtocolo.criptografar_protocolo(protocolo)
+
+
+def descriptografarProtocolo(protocolo_criptografado):
+    # Reverte a criptografia de protocolo para recuperar o protocolo original.
+    return criptoProtocolo.descriptografar_protocolo(protocolo_criptografado)
 
 
 # Desenvolvido por Bruno Terra
@@ -130,9 +140,10 @@ def operarVotacao():
                     print("--Erro: Digite 0 ou 1.")
 
         print("\n")
-        # Após confirmar tudo, gera o protocolo e salva o registro.
+        # Após confirmar tudo, gera o protocolo original e depois o criptografa para salvar.
         candidato_numero = votos_confirmados[0] if votos_confirmados else 0
-        protocolo = gerarProtocolo(candidato_numero)
+        protocolo_original = gerarProtocolo(candidato_numero)
+        protocolo = criptografarProtocolo(protocolo_original)
         if salvarVotos(votos_confirmados, protocolo, titulo_eleitor):
             print("Voto registrado com sucesso.")
             print(f"Protocolo de confirmação (criptografado): {protocolo}")
