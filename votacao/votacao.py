@@ -7,7 +7,7 @@ import votacao.auth as auth
 import votacao.zeresima as zeresima
 import votacao.criptoProtocolo as criptoProtocolo
 import menus as menus
-import candidatos.crud.listarCandidatos as candidatos
+import candidatos.crud.buscarCandidato as candidatos
 from database.conexao import conectar
 from eleitores import criptoChaveAcesso
 from datetime import datetime
@@ -140,13 +140,13 @@ def operarVotacao():
                     print("--Erro: Digite 0 ou 1.")
 
         print("\n")
-        # Após confirmar tudo, gera o protocolo original e depois o criptografa para salvar.
+        # Após confirmar tudo, gera o protocolo e salva o registro.
         candidato_numero = votos_confirmados[0] if votos_confirmados else 0
         protocolo_original = gerarProtocolo(candidato_numero)
         protocolo = criptografarProtocolo(protocolo_original)
         if salvarVotos(votos_confirmados, protocolo, titulo_eleitor):
             print("Voto registrado com sucesso.")
-            print(f"Protocolo de confirmação (criptografado): {protocolo}")
+            print(f"Protocolo de confirmação: {protocolo_original}")
         gerarDataHora()
 
 def gerarDataHora():
