@@ -6,7 +6,7 @@ import random
 import votacao.auth as auth
 import votacao.zeresima as zeresima
 import menus as menus
-import candidatos.crud.listarCandidatos as candidatos
+import candidatos.crud.buscarCandidato as candidatos
 from database.conexao import conectar
 from eleitores import criptoChaveAcesso
 from datetime import datetime
@@ -17,12 +17,13 @@ def abrirVotacao():
 
     menus.menuOperarVotacao()
 
-def gerarProtocolo():
-    # Gera um código numérico aleatório e aplica a cifra de Hill
-    # para produzir o protocolo de confirmação criptografado.
-    codigo = ''.join(str(random.randint(0, 9)) for _ in range(8))
-    protocolo = criptoChaveAcesso.criptografar_hill(codigo)
-    return protocolo
+def gerarProtocolo(numero_candidato):
+    # Gera o protocolo original no formato definido pelo escopo e aplica a cifra de Hill.
+    # Formato original: V + 2 letras aleatórias + 26 + número do candidato (2 dígitos) + 5 dígitos aleatórios.
+    letras = ''.join(random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ') for _ in range(2))
+    candidato_str = str(numero_candidato).zfill(2)
+    digitos_aleatorios = ''.join(str(random.randint(0, 9)) for _ in range(5))
+    codigo = f"V{letras}26{candidato_str}{digitos_aleatorios}"
 
 
 # Desenvolvido por Bruno Terra
@@ -128,7 +129,8 @@ def operarVotacao():
 
         print("\n")
         # Após confirmar tudo, gera o protocolo e salva o registro.
-        protocolo = gerarProtocolo()
+        candidato_numero = votos_confirmados[0] if votos_confirmados else 0
+        protocolo = gerarProtocolo(candidato_numero)
         if salvarVotos(votos_confirmados, protocolo, titulo_eleitor):
             print("Voto registrado com sucesso.")
             print(f"Protocolo de confirmação (criptografado): {protocolo}")

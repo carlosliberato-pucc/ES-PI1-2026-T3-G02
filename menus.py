@@ -57,7 +57,7 @@ def menuGerenciamento():
                 menuGerenciamentoCandidatos()
 def menuVotacao():
     while True:
-        limparTela()
+        
         print('\n--- Votação ---')
         print("[1] Abrir sistema de votação")
         print("[2] Auditoria do sistema de votação")
@@ -80,7 +80,7 @@ def menuVotacao():
 
 def menuOperarVotacao():
     while True:
-        limparTela()
+        
         print('\n--- Operar Votação ---')
         print("[1] Votar")
         print("[2] Encerrar Votação")

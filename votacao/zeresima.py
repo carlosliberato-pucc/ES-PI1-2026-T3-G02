@@ -11,4 +11,4 @@ def zeresima():
     print("--- Excluíndo Histórico de Votos ---")
     cursor.execute("TRUNCATE TABLE votos;")
 
-    listarCandidatos.listarVotosCandidato()
+    listarCandidatos.listarCandidatos()
