@@ -7,6 +7,7 @@ import eleitores.crud.remover as remover
 import votacao.votacao as votacao
 import votacao.auth as auth
 import votacao.auditoria as auditoria
+import votacao.resultados as resultados
 import candidatos.crud.cadastrarCandidato as cadastrarCandidato
 import candidatos.crud.removerCandidato as removerCandidato
 import candidatos.crud.editarCandidato as editarCandidato
@@ -74,7 +75,7 @@ def menuVotacao():
             case 2:
                 menuAuditoria()
             case 3:
-                votacao.resultados()
+                resultados.resultados()
             case _:
                 print("ERRO: opção inválida. Tente novamente")
 
