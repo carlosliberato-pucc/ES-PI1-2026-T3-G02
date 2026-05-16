@@ -4,6 +4,17 @@ import candidatos.crud.listarCandidatos as listarCandidatos
 import utils
 def zeresima():
     
+    """
+    zerezima()
+    Deleta dados da tabela Votos no banco de dados e chava função que imprime a mesma tabela atualizada.
+
+    Parâmetros de entrada (Args):
+        Nenhum,
+
+    Retorno (Returns):
+    NULL
+    """
+
     conexao = conectar()
     cursor = conexao.cursor(dictionary=True)
 

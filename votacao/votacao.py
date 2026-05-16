@@ -38,7 +38,7 @@ def descriptografarProtocolo(protocolo_criptografado):
 
 
 # Desenvolvido por Bruno Terra
-def salvarVotos(votos, protocolo, titulo_eleitor):
+def salvarVotos(votos, protocolo, titulo_eleitor, hora):
     """
     salvarVotos(votos, protocolo, titulo_eleitor)
     Armazena os votos no banco de dados junto com o protocolo de confirmação
@@ -63,12 +63,12 @@ def salvarVotos(votos, protocolo, titulo_eleitor):
         # comando SQL para inserir votos
         sql = """
         INSERT INTO votos (id_candidato, data_hora, protocolo_confirmacao)
-        VALUES (%s, NOW(), %s)
+        VALUES (%s, %s, %s)
         """
 
         # salva cada voto com o mesmo protocolo
         for id_candidato in votos:
-            cursor.execute(sql, (id_candidato, protocolo))
+            cursor.execute(sql, (id_candidato, hora, protocolo))
 
         # atualiza eleitor como já votou
         cursor.execute(
@@ -96,7 +96,16 @@ def salvarVotos(votos, protocolo, titulo_eleitor):
             conexao.close()
 
 def operarVotacao():
+    """
+    Verifica a autenticação do eleitor e gerencia todo o fluxo de votação.
 
+    Parâmetros de entrada (Args):
+        Nenhum.
+
+    Retorno (Returns):
+        None: A função não retorna valores, apenas executa a interface e salva os votos.
+    """
+    
     titulo_eleitor = auth.autenticarEleitor()
 
     if titulo_eleitor:
@@ -143,17 +152,24 @@ def operarVotacao():
         candidato_numero = votos_confirmados[0] if votos_confirmados else 0
         protocolo_original = gerarProtocolo(candidato_numero)
         protocolo = criptografarProtocolo(protocolo_original)
-        if salvarVotos(votos_confirmados, protocolo, titulo_eleitor):
+        agora = gerarDataHora()
+        if salvarVotos(votos_confirmados, protocolo, titulo_eleitor, agora):
             print("Voto registrado com sucesso.\n")
             print(f"Protocolo de confirmação: {protocolo_original}")
-        gerarDataHora()
+            print(f"Data e Hora: {agora}")
         print("\n")
         utils.contagem_regressiva("Limpando em", 7)
         utils.limparTela()
 
 def gerarDataHora():
+    """Captura a data e hora atuais do sistema.
+    Args:
+        Nenhum.
+    Returns:
+        datetime: Retorna um objeto contendo a data e o horário exatos do momento da execução.
+    """
     agora = datetime.now()
-    print(f"Data e Hora: {agora}")
+    return agora
 
 
 def encerrarVotacao():
@@ -248,7 +264,8 @@ def encerrarVotacao():
         print("\n" + "=" * 40)
         print("  VOTAÇÃO ENCERRADA COM SUCESSO!")
         print("=" * 40)
-        gerarDataHora()
+        agora = gerarDataHora()
+        print(f"Data e Hora: {agora}")
         print("\n")
         utils.contagem_regressiva("Limpando em", 3)
         utils.limparTela()

@@ -2,9 +2,16 @@
 import menus
 import database.conexao as conexao
 # para instalar as bibliotecas rode no terminal: 
-# pip install -r requirements.txt
 
 def main():
+    """Conecta ao banco de dados e inicializa o sistema exibindo o menu principal.
+
+    Args:
+        Nenhum.
+
+    Returns:
+        Nenhum.
+    """
     conexao.conectar() # conecta com o banco de dados antes de printar o menu 
     menus.menuInicial()
 

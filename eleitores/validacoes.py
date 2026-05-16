@@ -7,8 +7,10 @@ def validaTitulo(titulo):
     """
     validaTitulo(titulo)
     Verifica a autenticidade de um número de Título de Eleitor com base na quantidade de dígitos, código da Unidade Federativa (UF) e cálculo dos dois dígitos verificadores (DV).
+    
     Parâmetros de Entrada (Args):
     titulo (str): Uma string contendo os 12 dígitos do título de eleitor.
+    
     Retorno (Returns):
     bool: Retorna True se o título for válido (os dígitos verificadores calculados batem com os informados) ou False caso contrário.
     """
