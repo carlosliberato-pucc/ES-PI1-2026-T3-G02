@@ -10,6 +10,17 @@ import eleitores
 import utils
 
 def editarEleitor():
+    """
+    Busca um eleitor pelo CPF e permite a edição de seus dados no banco de dados.
+    Mantém os valores atuais caso o usuário deixe o campo em branco.
+ 
+    Args:
+        Nenhum.
+ 
+    Returns:
+        None
+    """
+
     print("\n===== EDITAR ELEITOR =====\n")
     conexao = conectar()
     cursor = conexao.cursor(dictionary=True)

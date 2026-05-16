@@ -9,12 +9,24 @@ from eleitores import validacoes
 import utils
 
 def _normalizar_perfil(perfil):
+    """
+    Normaliza o perfil do eleitor removendo espaços e acentos para comparação.
+ 
+    Args:
+        perfil (str): Perfil do eleitor retornado do banco de dados.
+ 
+    Returns:
+        str: Perfil normalizado em letras minúsculas e sem acentos.
+    """
+
     return str(perfil).strip().lower().replace("á", "a")
 
 
 def autenticarMesario():
     """
     Autentica um usuário como mesário para abrir/encerrar votação.
+    Args:
+        Nenhum.
 
     Returns:
         bool: True se autenticado, False caso contrário
@@ -97,7 +109,8 @@ def autenticarMesario():
 def autenticarEleitor():
     """
     Autentica um usuário.
-
+    Args:
+        Nenhum.
     Returns:
         str or None: título de eleitor se autenticado, None caso contrário
     """

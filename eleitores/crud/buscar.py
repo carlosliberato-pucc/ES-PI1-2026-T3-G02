@@ -10,6 +10,18 @@ import eleitores.criptoChaveAcesso as criptoChaveAcesso
 import utils
 
 def buscarEleitor():
+
+    """
+    Exibe um menu de busca e localiza eleitores no banco de dados
+    por CPF, título de eleitor ou nome.
+ 
+    Args:
+        Nenhum.
+ 
+    Returns:
+        None
+    """
+
     # Conecta ao banco de dados e cria um cursor que retorna resultados como dicionário
     conexao = conectar()
     cursor = conexao.cursor(dictionary=True)

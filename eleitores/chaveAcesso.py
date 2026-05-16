@@ -1,7 +1,17 @@
 import random
 
 def gerarChaveAcesso(nome):
-    # Gera a chave de acesso do eleitor baseada no nome fornecido.
+    """
+    Gera a chave de acesso do eleitor baseada no nome fornecido.
+    Padrão: 2 primeiras letras do primeiro nome + 1ª letra do segundo nome + 4 dígitos aleatórios.
+ 
+    Args:
+        nome (str): Nome completo do eleitor.
+ 
+    Returns:
+        str: Chave de acesso gerada no formato definido.
+    """
+
 
     partes = nome.strip().upper().split()
 

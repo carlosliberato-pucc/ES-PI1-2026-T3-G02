@@ -10,8 +10,17 @@ import eleitores
 import utils
 
 def removerEleitor():
-    #remove um eleitor do bando de dados a partir do cpf informado
+    """
+    remove um eleitor do bando de dados a partir do cpf informado
+        O CPF é validado e criptografado antes de ser usado na consulta.
+ 
+    Args:
+        Nenhum.
+ 
+    Returns:
+        None
 
+"""
     conexao = conectar()
     cursor = conexao.cursor()
   #o cpf é validado usando um módulo existente

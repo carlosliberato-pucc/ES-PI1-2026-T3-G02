@@ -14,13 +14,32 @@ from datetime import datetime
 import utils
 
 def abrirVotacao():
+    """
+    Inicia o processo de votação executando a zerésima e abrindo o menu de operação.
+ 
+    Args:
+        Nenhum.
+ 
+    Returns:
+        None
+    """
+
     zeresima.zeresima()
     menus.menuOperarVotacao()
 
 #Desenvolvido por Gabriel Coutinho
 def gerarProtocolo(numero_candidato):
-    # Gera o protocolo original no formato definido pelo escopo.
-    # Formato original: V + 2 letras aleatórias + 26 + número do candidato (2 dígitos) + 5 dígitos aleatórios.
+    """
+    Gera o protocolo original no formato definido pelo escopo do projeto.
+    Formato: V + 2 letras aleatórias + 26 + número do candidato (2 dígitos) + 5 dígitos aleatórios.
+ 
+    Args:
+        numero_candidato (int): Número de votação do candidato escolhido.
+ 
+    Returns:
+        str: Protocolo gerado no formato definido.
+    """
+
     letras = ''.join(random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ') for _ in range(2))
     candidato_str = str(numero_candidato).zfill(2)
     digitos_aleatorios = ''.join(str(random.randint(0, 9)) for _ in range(5))
@@ -28,12 +47,30 @@ def gerarProtocolo(numero_candidato):
 
 
 def criptografarProtocolo(protocolo):
-    # Criptografa o protocolo de votação usando a cifra de Hill específica para protocolo.
+    """
+    Criptografa o protocolo de votação usando a cifra de Hill específica para protocolo.
+ 
+    Args:
+        protocolo (str): Protocolo original a ser criptografado.
+ 
+    Returns:
+        str: Protocolo criptografado.
+    """
+
     return criptoProtocolo.criptografar_protocolo(protocolo)
 
 
 def descriptografarProtocolo(protocolo_criptografado):
-    # Reverte a criptografia de protocolo para recuperar o protocolo original.
+    """
+    Reverte a criptografia do protocolo para recuperar o protocolo original.
+ 
+    Args:
+        protocolo_criptografado (str): Protocolo criptografado a ser descriptografado.
+ 
+    Returns:
+        str: Protocolo original descriptografado.
+    """
+
     return criptoProtocolo.descriptografar_protocolo(protocolo_criptografado)
 
 

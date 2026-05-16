@@ -6,6 +6,17 @@ import eleitores.chaveAcesso as chaveAcesso
 import eleitores.criptoChaveAcesso as criptoChaveAcesso
 
 def listarEleitor():
+    """
+    Lista todos os eleitores cadastrados no banco de dados em ordem alfabética,
+    exibindo seus dados com CPF e chave de acesso descriptografados.
+ 
+    Args:
+        Nenhum.
+ 
+    Returns:
+        None
+    """
+
     conexao = conectar()
     cursor = conexao.cursor(dictionary=True)
 
