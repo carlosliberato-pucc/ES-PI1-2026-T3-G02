@@ -13,7 +13,7 @@ def listarCandidatos():
         None."""
     
 
-    print("---Lista de Candidatos ---")
+    print("===== LISTA DE CANDIDATOS(AS) =====\n")
 
     conexao = conectar()
     cursor = conexao.cursor(dictionary=True)
@@ -41,3 +41,27 @@ def listarCandidatos():
     finally:
         cursor.close()
         conexao.close()
+
+def listarVotosCandidato():
+    conexao = conectar()
+    cursor = conexao.cursor(dictionary=True)
+
+    sql = """
+        SELECT n.id_candidato, 
+        n.nome_candidato,
+        COUNT(v.id_voto) AS quantidade
+        FROM candidatos n
+        LEFT JOIN votos v ON n.id_candidato = v.id_candidato
+        GROUP BY n.id_candidato, n.nome_candidato;
+    """
+
+    cursor.execute(sql)
+    candidatos = cursor.fetchall()
+
+    print("\n\n::: Histórico de Votos :::\n")
+    for candidato in candidatos:
+        print(f"{candidato['id_candidato']} - {candidato['nome_candidato']}\nTotal de Votos: {candidato['quantidade']}")
+        print("-" * 30)
+
+    cursor.close()
+    conexao.close()

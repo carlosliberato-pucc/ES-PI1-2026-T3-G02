@@ -5,7 +5,6 @@ import database.conexao as conexao
 # pip install -r requirements.txt
 
 def main():
-    print("\n====== LAD.py - Sistema de Votação Digital ======")
     conexao.conectar() # conecta com o banco de dados antes de printar o menu 
     menus.menuInicial()
 

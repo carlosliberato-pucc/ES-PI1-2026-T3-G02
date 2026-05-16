@@ -14,11 +14,11 @@ def buscarCandidato():
         None
     """
 
-    print("\n--- Buscar Candidato ---")
+    print("\n===== BUSCAR CANDIDATO(A) =====")
 
     while True:
       
-        numero_str = input("- Digite o número de votação do candidato: ").strip()
+        numero_str = input("\n- Digite o número de votação do candidato: ").strip()
         if numero_str.isdigit() and int(numero_str) > 0:
 
             numero = int(numero_str)

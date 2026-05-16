@@ -6,7 +6,7 @@ import mysql.connector
 from eleitores import criptoChaveAcesso
 from eleitores import criptoCPF
 from eleitores import validacoes
-
+import utils
 
 def _normalizar_perfil(perfil):
     return str(perfil).strip().lower().replace("á", "a")
@@ -23,23 +23,22 @@ def autenticarMesario():
     conexao = None
     cursor = None
 
-    print("\n=== Autenticação de Mesário ===\n")
+    print("\n===== AUTENTICAÇÃO DO MESÁRIO =====\n")
 
-    titulo = input("Digite o título de eleitor: ").strip()
+    titulo = input("- Digite o título de eleitor: ").strip()
     while not validacoes.validaTitulo(titulo):
-        if not validacoes.validaTitulo(titulo):
-            print("Erro: Título Inválido. Tente Novamente...\n")
-            titulo = input("Digite o Título de Eleitor: ")
+        print("Erro: Título Inválido. Tente Novamente...\n")
+        titulo = input("- Digite o Título de Eleitor: ")
     
     while(True):
-        cpf_parcial = input("Digite os 4 primeiros dígitos do CPF: ").strip()
+        cpf_parcial = input("- Digite os 4 primeiros dígitos do CPF: ").strip()
         if not cpf_parcial.isdigit() or len(cpf_parcial) != 4:
-            print("ERRO: informe exatamente os 4 primeiros dígitos do CPF")
+            print("--ERRO: informe exatamente os 4 primeiros dígitos do CPF\n")
         else:
             break
     
     while(True):
-        chave = input("Digite a chave de acesso: ").strip().upper()
+        chave = input("- Digite a chave de acesso: ").strip().upper()
         if not chave:
             print("ERRO: chave de acesso não informada")
         else:
@@ -59,6 +58,9 @@ def autenticarMesario():
         cursor.execute(query, (titulo,))
         resultado = cursor.fetchone()
 
+        print("")
+        utils.pontilhado("Verificando Dados", 4)
+        print("\n")
         if not resultado:
             print("ERRO: usuário não encontrado")
             return False
@@ -79,7 +81,7 @@ def autenticarMesario():
             print("ERRO: usuário não é mesário")
             return False
 
-        print("Mesário autenticado com sucesso!")
+        print("\nMesário autenticado com sucesso!")
         return True
 
     except mysql.connector.Error as erro:
@@ -103,23 +105,23 @@ def autenticarEleitor():
     conexao = None
     cursor = None
 
-    print("\n=== Autenticação de Eleitor ===\n")
+    print("\n===== AUTENTICAÇÃO DO ELEITOR =====\n")
 
-    titulo = input("Digite o título de eleitor: ").strip()
+    titulo = input("- Digite o título de eleitor: ").strip()
     while not validacoes.validaTitulo(titulo):
         if not validacoes.validaTitulo(titulo):
             print("Erro: Título Inválido. Tente Novamente...\n")
-            titulo = input("Digite o Título de Eleitor: ")
+            titulo = input("- Digite o Título de Eleitor: ")
     
     while(True):
-        cpf_parcial = input("Digite os 4 primeiros dígitos do CPF: ").strip()
+        cpf_parcial = input("- Digite os 4 primeiros dígitos do CPF: ").strip()
         if not cpf_parcial.isdigit() or len(cpf_parcial) != 4:
             print("ERRO: informe exatamente os 4 primeiros dígitos do CPF")
         else:
             break
     
     while(True):
-        chave = input("Digite a chave de acesso: ").strip().upper()
+        chave = input("- Digite a chave de acesso: ").strip().upper()
         if not chave:
             print("ERRO: chave de acesso não informada")
         else:
@@ -139,6 +141,9 @@ def autenticarEleitor():
         cursor.execute(query, (titulo,))
         resultado = cursor.fetchone()
 
+        print("")
+        utils.pontilhado("Verificando Dados", 3)
+        print("\n")
         if not resultado:
             print("ERRO: usuário não encontrado")
             return None

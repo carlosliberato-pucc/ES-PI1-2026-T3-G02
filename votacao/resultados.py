@@ -1,7 +1,7 @@
 #Desenvolvido por Bruno Terra
 
 from database.conexao import conectar
-
+import utils
 
 def boletimUrna():
 
@@ -64,7 +64,7 @@ def boletimUrna():
             print(f"Número: {vencedor['id_candidato']}")
             print(f"Partido: {vencedor['partido']}")
             print(f"Total de votos: {vencedor['total_votos']}")
-            print("====================================")
+            print("========================================")
 
 
     except Exception as e:
@@ -86,12 +86,13 @@ def resultados() -> None:
         None
     """
     while True:
-        print("\n--- Resultados da Votação ---")
+        print("\n===== Resultados da Votação =====")
         print("[1] Boletim de Urna")
         print("[0] Voltar")
  
         try:
             opcao = int(input("Digite uma opção: "))
+            utils.limparTela()
         except ValueError:
             print("Opção inválida. Tente novamente.")
             continue

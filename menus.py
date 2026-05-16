@@ -15,19 +15,18 @@ import candidatos.crud.listarCandidatos as listarCandidatos
 import candidatos.crud.buscarCandidato as buscarCandidato
 import sys
 from utils import limparTela
-
-
-
+import utils
 
 def menuInicial():
     while True:
         limparTela()
-        print('\n--- Menu Inicial ---')
+        print("====== LAD.py - Sistema de Votação Digital ======")
+        print('\n===== Menu Inicial =====')
         print('[1] Gerenciamento')
         print('[2] Votação')
         print('[0] Fechar')
-
         opcao = int(input("Digite a opção que deseja: "))
+        limparTela()
         match opcao:
             case 1:
                 menuGerenciamento()  # entra no submenu, ao retornar volta aqui
@@ -41,13 +40,12 @@ def menuInicial():
 
 def menuGerenciamento():
     while True:
-        limparTela()
-        print('\n--- Gerenciamento ---')
+        print('\n===== Gerenciamento =====')
         print("[1] Gerenciamento de Eleitores")
         print("[2] Gerenciamento de Candidatos")
         print("[0] Voltar")
-
         opcao = int(input("Digite uma opção: "))
+        limparTela()
         match opcao:
             case 0:
                 return 
@@ -56,21 +54,23 @@ def menuGerenciamento():
                 menuGerenciamentoEleitores()
             case 2:
                 menuGerenciamentoCandidatos()
+        
 def menuVotacao():
     while True:
-        
-        print('\n--- Votação ---')
+        print('\n===== Votação =====')
         print("[1] Abrir sistema de votação")
         print("[2] Auditoria do sistema de votação")
         print("[3] Resultados da votação")
         print("[0] Voltar")
-
         opcao = int(input("Digite uma opção: "))
+        limparTela()
         match opcao:
             case 0:
                 return  # volta para menuInicial
             case 1:
                 if auth.autenticarMesario():
+                    utils.contagem_regressiva("Iniciando em", 3)
+                    limparTela()
                     votacao.abrirVotacao()
             case 2:
                 menuAuditoria()
@@ -81,13 +81,12 @@ def menuVotacao():
 
 def menuOperarVotacao():
     while True:
-        
-        print('\n--- Operar Votação ---')
+        print('\n===== Operar Votação =====')
         print("[1] Votar")
         print("[2] Encerrar Votação")
         print("[0] Voltar")
-
         opcao = int(input("Digite uma opção: "))
+        limparTela()
         match opcao:
             case 0:
                 return  # volta para quem chamou
@@ -101,18 +100,15 @@ def menuOperarVotacao():
 
 def menuGerenciamentoEleitores():
     while True:
-
-        print('\n--- Gerenciamento de Eleitores ---')
+        print('\n===== Gerenciamento de Eleitores =====')
         print('[1] Cadastrar Eleitor')
         print('[2] Remover Eleitor')
         print('[3] Editar Dados do Eleitor')
         print('[4] Listar Eleitores')
         print('[5] Buscar Eleitor')
         print('[0] Voltar')
-
-
-
         opcao = int(input("Digite a opção que deseja: "))
+        limparTela()
         match opcao:
             case 0:
                 return  # volta para menuInicial
@@ -130,18 +126,17 @@ def menuGerenciamentoEleitores():
                 print('\nOpção Inválida. Tente Novamente...\n')
 
 
-
 def menuGerenciamentoCandidatos():
     while True:
-        
-        print('\n--- Gerenciamento de Candidatos ---')
+        print('\n===== Gerenciamento de Candidatos =====')
         print('[1] Cadastrar Candidato')
         print('[2] Remover Candidato')
         print('[3] Editar Candidato')
         print('[4] Listar Candidatos')
         print('[5] Buscar Candidato')
-        print('[0] voltar')
+        print('[0] Voltar')
         opcao = int(input("Digite uma opção: "))
+        limparTela()
         match opcao:
             case 0:
                 return
@@ -161,11 +156,8 @@ def menuGerenciamentoCandidatos():
 
 
 def menuAuditoria():
-
     while True:
-
-
-        print('\n--- Auditoria ---')
+        print('\n===== Auditoria =====')
         print('[1] Exibição de Logs de Ocorrências')
         print('[2] Exibição de Protocolos de Votação')
         print('[0] Voltar')
@@ -182,11 +174,8 @@ def menuAuditoria():
                 print("ERRO: opção inválida. Tente novamente")
 
 def menuCandidatos():
-
     while True:
-        
-        
-        print('\n--- Gerenciamento de Candidatos---')
+        print('\n===== Gerenciamento de Candidatos=====')
         print('[1] Cadastrar Candidato')
         print('[0] Voltar')
         
@@ -198,8 +187,3 @@ def menuCandidatos():
                 cadastrarCandidato.cadastrarCandidato()
             case _:
                 print("ERRO: opção inválida. Tente novamente")
-
-
-
-
-

@@ -7,6 +7,7 @@ import menus
 import eleitores.criptoCPF as criptoCPF
 import eleitores.chaveAcesso as chaveAcesso
 import eleitores
+import utils
 
 def editarEleitor():
     print("\n===== EDITAR ELEITOR =====\n")
@@ -86,7 +87,11 @@ def editarEleitor():
         """
         cursor.execute(sql, (novo_nome, novo_cpf_criptografado, novo_titulo, novo_perfil, eleitor['id_eleitor']))
         conexao.commit()
-        print("\nEleitor atualizado com sucesso!")
+        print("\n")
+        utils.pontilhado("Atualizando", 6)
+        print("\n\nEleitor atualizado com sucesso!\n")
+        utils.contagem_regressiva("Limpando em ", 3)
+        utils.limparTela()
 
     except mysql.connector.Error as e:
         conexao.rollback()

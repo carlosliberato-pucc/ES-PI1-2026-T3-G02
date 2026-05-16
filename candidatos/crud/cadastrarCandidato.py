@@ -1,7 +1,7 @@
 # Desenvolvido por Bruno Terra
 from database.conexao import conectar
 import mysql.connector
-
+import utils
 
 def cadastrarCandidato() -> None:
     """
@@ -15,9 +15,9 @@ def cadastrarCandidato() -> None:
     Returns:
         None
     """
-    print("\n--- Cadastrar Candidato ---")
+    print("\n===== CADASTRAR CANDIDATO(A) =====")
 
-    nome = input("Nome do candidato: ").strip()
+    nome = input("\nNome do candidato: ").strip()
     partido = input("Partido: ").strip()
 
     while True:
@@ -36,7 +36,11 @@ def cadastrarCandidato() -> None:
             (numero, nome, partido)
         )
         conexao.commit()
-        print(f"\nCandidato '{nome}' cadastrado com sucesso! Número de votação: {numero}")
+        print("\n")
+        utils.pontilhado("Cadastrando", 6)
+        print(f"\n\nCandidato(a) '{nome}' de número de votação '{numero}' cadastrado com sucesso! \n")
+        utils.contagem_regressiva("Limpando em", 4)
+        utils.limparTela()
 
     except mysql.connector.errors.IntegrityError:
         print(f"\nErro: o número {numero} já está em uso por outro candidato. Cadastro cancelado.")

@@ -11,11 +11,10 @@ import candidatos.crud.buscarCandidato as candidatos
 from database.conexao import conectar
 from eleitores import criptoChaveAcesso
 from datetime import datetime
+import utils
 
 def abrirVotacao():
-    
     zeresima.zeresima()
-
     menus.menuOperarVotacao()
 
 #Desenvolvido por Gabriel Coutinho
@@ -101,7 +100,8 @@ def operarVotacao():
     titulo_eleitor = auth.autenticarEleitor()
 
     if titulo_eleitor:
-        print("\n")
+        utils.contagem_regressiva("Iniciando em", 2)
+        utils.limparTela()
         print(':'*29)
         print("::::::: ELEIÇÕES 2026 :::::::")
         print(':'*29)
@@ -111,28 +111,27 @@ def operarVotacao():
         while not confirmacao:
             while True:
                 try:
-                    voto = int(input("Digite o número: "))
+                    voto = int(input("\n- Digite o número: "))
                     candidato = candidatos.imprimirCandidato(voto)
                     if not candidato:
-                        print("--Erro: Número de candidato inválido. Tente novamente.")
                         continue
                     break
                 except ValueError:
                     print("--Erro: Entrada Inválida. Tente Novamente..")
 
             while True:
-                print("1 - [CONFIRMAR]")
+                print("\n1 - [CONFIRMAR]")
                 print("0 - [CANCELAR]")
 
                 try:
-                    opcao = int(input("Digite a opção: "))
+                    opcao = int(input("\n- Digite a opção: "))
                     if opcao == 1:
                         confirmacao = True
                         votos_confirmados.append(candidato['id_candidato'])
-                        print("Voto Confirmado")
+                        print("\nVoto Confirmado.")
                         break
                     elif opcao == 0:
-                        print("Voto Cancelado")
+                        print("\nVoto Cancelado.\n")
                         break
                     else:
                         print("\nOpção Inválida. Tente Novamente")
@@ -145,9 +144,12 @@ def operarVotacao():
         protocolo_original = gerarProtocolo(candidato_numero)
         protocolo = criptografarProtocolo(protocolo_original)
         if salvarVotos(votos_confirmados, protocolo, titulo_eleitor):
-            print("Voto registrado com sucesso.")
+            print("Voto registrado com sucesso.\n")
             print(f"Protocolo de confirmação: {protocolo_original}")
         gerarDataHora()
+        print("\n")
+        utils.contagem_regressiva("Limpando em", 7)
+        utils.limparTela()
 
 def gerarDataHora():
     agora = datetime.now()
@@ -188,9 +190,7 @@ def encerrarVotacao():
 
     """
 
-    print("\n=== Encerramento da Votação ===\n")
-        
-
+    print("\n=== Encerramento da Votação ===")
     # Autentica o mesário
     if not auth.autenticarMesario():
         print("ERRO: Encerramento cancelado. Falha na autenticação do mesário.")
@@ -245,11 +245,13 @@ def encerrarVotacao():
             return False
 
         # Encerramento confirmado com sucesso
-
         print("\n" + "=" * 40)
         print("  VOTAÇÃO ENCERRADA COM SUCESSO!")
         print("=" * 40)
         gerarDataHora()
+        print("\n")
+        utils.contagem_regressiva("Limpando em", 3)
+        utils.limparTela()
         return True
 
     except Exception as e:

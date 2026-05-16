@@ -8,6 +8,7 @@ import menus
 import eleitores.criptoCPF as criptoCPF
 import eleitores.chaveAcesso as chaveAcesso
 import eleitores.criptoChaveAcesso as criptoChaveAcesso
+import utils
 
 def cadastrarEleitor():
 
@@ -22,22 +23,18 @@ def cadastrarEleitor():
     conexao = conectar()
     cursor = conexao.cursor() # variavel para gerar funções do mysql
 
-    print('\n::: Cadastro de Eleitor :::\n')
+    print('\n===== CADASTRO DE ELEITORES =====\n')
     nome = input("- Digite o nome completo: ")
 
     cpf = input("- Digite o CPF (somente números): ")
     while not validacoes.validaCPF(cpf):
-        # validação do cpf
-        if not validacoes.validaCPF(cpf):
-            print("--Erro: CPF Inválido. Tente Novamente...\n")
-            cpf = input("- Digite o CPF (somente números): ")
+        print("--Erro: CPF Inválido. Tente Novamente...\n")
+        cpf = input("- Digite o CPF (somente números): ")
         
     titulo = input("- Digite o Título de Eleitor (somente números): ")
     while not validacoes.validaTitulo(titulo):
-        # chamando função de validação
-        if not validacoes.validaTitulo(titulo):
-            print("--Erro: Título Inválido. Tente Novamente...\n")
-            titulo = input("- Digite o Título de Eleitor (somente números): ")
+        print("--Erro: Título Inválido. Tente Novamente...\n")
+        titulo = input("- Digite o Título de Eleitor (somente números): ")
 
     mesarioQuestion = int(input("- Digite se o Eleitor é Mesário? (1 - SIM / 0 - NAO): "))
     while mesarioQuestion < 0 or mesarioQuestion > 1:
@@ -71,6 +68,9 @@ def cadastrarEleitor():
         cursor.execute(sql, (nome,cpf_criptografado,titulo,perfil,chave_acesso_cripto,flag_voto))
         conexao.commit()
         print("Dados Cadastrados com Sucesso!")
+        utils.contagem_regressiva("Limpando em ", 5)
+        utils.limparTela()
+
 
     except mysql.connector.Error as e:
         conexao.rollback()

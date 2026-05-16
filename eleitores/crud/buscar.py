@@ -7,6 +7,7 @@ import menus
 import eleitores.criptoCPF as criptoCPF
 import eleitores.chaveAcesso as chaveAcesso
 import eleitores.criptoChaveAcesso as criptoChaveAcesso
+import utils
 
 def buscarEleitor():
     # Conecta ao banco de dados e cria um cursor que retorna resultados como dicionário
@@ -14,7 +15,7 @@ def buscarEleitor():
     cursor = conexao.cursor(dictionary=True)
 
     # Exibe o menu de opções para escolher o tipo de busca
-    print("\n::: Buscar Eleitor :::\n")
+    print("\n===== BUSCA DE ELEITORES =====\n")
     print("[1] Buscar por CPF")
     print("[2] Buscar por Título de Eleitor")
     print("[3] Buscar por Nome")
@@ -30,12 +31,10 @@ def buscarEleitor():
     
     # Busca por CPF
     if opcao == 1:
-        cpf = input("- Digite o CPF (somente números): ")
+        cpf = input("\n- Digite o CPF (somente números): ")
         while not validacoes.validaCPF(cpf):
-            # validação do cpf
-            if not validacoes.validaCPF(cpf):
-                print("--Erro: CPF Inválido. Tente Novamente...\n")
-                cpf = input("- Digite o CPF (somente números): ")
+            print("\n--Erro: CPF Inválido. Tente Novamente...\n")
+            cpf = input("- Digite o CPF (somente números): ")
         
         # Converte o CPF para letras e criptografa usando a mesma lógica de armazenamento
         cpf_convertido = criptoCPF.cpf_para_letras(cpf)
@@ -49,11 +48,11 @@ def buscarEleitor():
 
     # Busca por Título de Eleitor
     elif opcao == 2:
-        titulo = input("- Digite o Título de Eleitor (somente números): ")
+        titulo = input("\n- Digite o Título de Eleitor (somente números): ")
         while not validacoes.validaTitulo(titulo):
             # chamando função de validação
             if not validacoes.validaTitulo(titulo):
-                print("--Erro: Título Inválido. Tente Novamente...\n")
+                print("\n--Erro: Título Inválido. Tente Novamente...\n")
                 titulo = input("- Digite o Título de Eleitor (somente números): ")
         
         sql = '''
@@ -65,9 +64,9 @@ def buscarEleitor():
 
     # Busca por Nome
     elif opcao == 3:
-        nome = input("Digite o nome completo ou parte do nome: ").strip()
+        nome = input("\n- Digite o nome completo ou parte do nome: ").strip()
         if not nome:
-            print("Busca cancelada: Nome inválido.")
+            print("\nBusca cancelada: Nome inválido.")
             cursor.close()
             conexao.close()
             return
@@ -81,7 +80,7 @@ def buscarEleitor():
         params = (f'%{nome}%',)
 
     elif opcao == 0:
-        menus.menuGerenciamento()
+        return
     # Opção inválida
     else:
         print("Opção de busca inválida.")
@@ -96,7 +95,9 @@ def buscarEleitor():
     if not registros:
         print("\nNenhum eleitor encontrado.")
     else:
-        print("\nResultados da busca: ")
+        print("\n")
+        utils.pontilhado("Buscando", 4)
+        print("\n\nResultados da Busca: ")
         for eleitor in registros:
             # Descriptografa CPF e chave de acesso antes de mostrar
             cpf_decodificado = criptoCPF.letras_para_cpf(criptoCPF.descriptografar_hill(eleitor['cpf']))

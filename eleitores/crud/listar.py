@@ -1,7 +1,6 @@
 from database.conexao import conectar
 import mysql.connector
 import eleitores.validacoes as validacoes
-import menus
 import eleitores.criptoCPF as criptoCPF
 import eleitores.chaveAcesso as chaveAcesso
 import eleitores.criptoChaveAcesso as criptoChaveAcesso
@@ -19,7 +18,7 @@ def listarEleitor():
     cursor.execute(sql)
     eleitores = cursor.fetchall()
 
-    print("\n::: Lista de Eleitores :::\n")
+    print("\n===== LISTA DE ELEITORES =====\n")
 
     if not eleitores:
         print("Nenhum eleitor cadastrado.")

@@ -12,6 +12,8 @@ def validaTitulo(titulo):
     Retorno (Returns):
     bool: Retorna True se o título for válido (os dígitos verificadores calculados batem com os informados) ou False caso contrário.
     """
+    if len(titulo) < 12:
+        return False
 
     sequencia = titulo[:8]
     uf = titulo[8:10]
@@ -65,6 +67,8 @@ def validaCPF(cpf):
 
     Por último, compara os dígitos calculados com os que vieram no CPF. Se forem iguais, o CPF é válido.
 '''
+    if len(cpf) < 11:
+        return False
 
     sequencia = cpf[:9]
     digitoVerificadores = cpf[9:11]

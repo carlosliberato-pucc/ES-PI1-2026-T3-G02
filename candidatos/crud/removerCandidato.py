@@ -2,7 +2,7 @@
 
 from database.conexao import conectar
 import mysql.connector
-
+import utils
 
 def removerCandidato():
     """
@@ -16,10 +16,10 @@ def removerCandidato():
         None
         """
     
-    print('-- Remover Candidato ---')
+    print('\n===== REMOVER CANDIDATO(A) =====')
 
     while True:
-        numero_str = input("Digite o número do candidato a ser removido: ").strip()
+        numero_str = input("\nDigite o número do candidato a ser removido: ").strip()
         if numero_str.isdigit() and int(numero_str) > 0:
             numero = int(numero_str)
             break
@@ -43,10 +43,13 @@ def removerCandidato():
         
         
         cursor2 = conexao.cursor()
+        print("\n")
+        utils.pontilhado("Removendo", 6)
         cursor2.execute("DELETE FROM candidatos WHERE id_candidato = %s", (numero,))
         conexao.commit()
-        print(f"\nCandidato '{candidato['nome_candidato']}' removido com sucesso!")
-
+        print(f"\n\nCandidato '{candidato['nome_candidato']}' removido com sucesso!\n")
+        utils.contagem_regressiva("Limpando em", 4)
+        utils.limparTela()
 
     except mysql.connector.Error as e:
         conexao.rollback()

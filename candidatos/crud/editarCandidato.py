@@ -3,7 +3,7 @@
 
 from database.conexao import conectar
 import mysql.connector
-
+import utils
 
 def editarCandidato() -> None:
     """
@@ -17,7 +17,7 @@ def editarCandidato() -> None:
     Returns:
         None
     """
-    print("\n--- Editar Candidato ---")
+    print("\n===== EDITAR CANDIDATO(A) =====")
 
     conexao = conectar()
     cursor = conexao.cursor(dictionary=True)
@@ -26,7 +26,7 @@ def editarCandidato() -> None:
  
     # Busca o candidato pelo número para confirmar que ele existe
     while True:
-        numero_str = input("- Digite o número de votação do candidato: ").strip()
+        numero_str = input("\n- Digite o número de votação do candidato: ").strip()
         if numero_str.isdigit() and int(numero_str) > 0:
             numero = int(numero_str)
             break
@@ -48,7 +48,7 @@ def editarCandidato() -> None:
         return
 
  
-    print(f"\nCandidato encontrado: {candidato['nome_candidato']} | Partido: {candidato['partido']}")
+    print(f"\nCandidato encontrado: \n{candidato['nome_candidato']} | Partido: {candidato['partido']}")
     print("Deixe em branco para manter o valor atual.\n")
 
 
@@ -95,7 +95,11 @@ def editarCandidato() -> None:
         """
         cursor.execute(sql, (novo_numero, novo_nome, novo_partido, candidato['id_candidato']))
         conexao.commit()
-        print("\nCandidato atualizado com sucesso!")
+        print("\n")
+        utils.pontilhado("Atualizando", 6)
+        print("\n\nCandidato atualizado com sucesso!\n")
+        utils.contagem_regressiva("Limpando em", 4)
+        utils.limparTela()
 
     except mysql.connector.Error as e:
         conexao.rollback()
