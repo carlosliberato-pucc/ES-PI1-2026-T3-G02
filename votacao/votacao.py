@@ -12,6 +12,7 @@ from database.conexao import conectar
 from eleitores import criptoChaveAcesso
 from datetime import datetime
 import utils
+from votacao.auditoria import registrarLog
 
 def abrirVotacao():
     """
@@ -192,6 +193,7 @@ def operarVotacao():
         agora = gerarDataHora()
         if salvarVotos(votos_confirmados, protocolo, titulo_eleitor, agora):
             print("Voto registrado com sucesso.\n")
+            registrarLog("SUCESSO: Voto realizado com sucesso")
             print(f"Protocolo de confirmação: {protocolo_original}")
             print(f"Data e Hora: {agora}")
         print("\n")
@@ -301,6 +303,7 @@ def encerrarVotacao():
         print("\n" + "=" * 40)
         print("  VOTAÇÃO ENCERRADA COM SUCESSO!")
         print("=" * 40)
+        registrarLog("ENCERRAMENTO: Votação finalizada com sucesso.")
         agora = gerarDataHora()
         print(f"Data e Hora: {agora}")
         print("\n")
