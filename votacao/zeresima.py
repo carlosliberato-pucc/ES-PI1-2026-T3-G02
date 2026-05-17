@@ -2,6 +2,8 @@ from database.conexao import conectar
 import mysql.connector
 import candidatos.crud.listarCandidatos as listarCandidatos
 import utils
+from votacao.auditoria import registrarLog
+
 def zeresima():
     
     """
@@ -21,5 +23,6 @@ def zeresima():
     print("\n:::::::::::: Zerésima ::::::::::::\n")
     utils.pontilhado("Excluindo Votos", 3)
     cursor.execute("TRUNCATE TABLE votos;")
+    registrarLog("ABERTURA: Votação iniciada com sucesso. Total de votos zerado.")
 
     listarCandidatos.listarVotosCandidato()

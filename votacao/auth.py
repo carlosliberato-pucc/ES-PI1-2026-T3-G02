@@ -7,6 +7,7 @@ from eleitores import criptoChaveAcesso
 from eleitores import criptoCPF
 from eleitores import validacoes
 import utils
+from votacao.auditoria import registrarLog
 
 def _normalizar_perfil(perfil):
     """
@@ -75,6 +76,7 @@ def autenticarMesario():
         print("\n")
         if not resultado:
             print("ERRO: usuário não encontrado")
+            registrarLog("ALERTA: Tentativa de acesso negado")
             return False
 
         cpf_cripto_db, perfil, chave_db = resultado
@@ -83,14 +85,17 @@ def autenticarMesario():
 
         if not cpf_original.startswith(cpf_parcial):
             print("ERRO: CPF não confere")
+            registrarLog("ALERTA: Tentativa de acesso negado")
             return False
 
         if chave_cripto != chave_db:
             print("ERRO: chave de acesso inválida")
+            registrarLog("ALERTA: Tentativa de acesso negado")
             return False
 
         if _normalizar_perfil(perfil) != "mesario":
             print("ERRO: usuário não é mesário")
+            registrarLog("ALERTA: Tentativa de acesso negado")
             return False
 
         print("\nMesário autenticado com sucesso!")
@@ -98,6 +103,7 @@ def autenticarMesario():
 
     except mysql.connector.Error as erro:
         print(f"ERRO: falha ao autenticar mesário: {erro}")
+        registrarLog("ALERTA: Tentativa de acesso negado")
         return False
 
     finally:
@@ -159,6 +165,7 @@ def autenticarEleitor():
         print("\n")
         if not resultado:
             print("ERRO: usuário não encontrado")
+            registrarLog("ALERTA: Tentativa de acesso negado")
             return None
 
         cpf_cripto_db, flag_voto, chave_db = resultado
@@ -167,14 +174,17 @@ def autenticarEleitor():
 
         if not cpf_original.startswith(cpf_parcial):
             print("ERRO: CPF não confere")
+            registrarLog("ALERTA: Tentativa de acesso negado")
             return None
 
         if chave_cripto != chave_db:
             print("ERRO: chave de acesso inválida")
+            registrarLog("ALERTA: Tentativa de acesso negado")
             return None
 
         if flag_voto:
             print("ERRO: usuário já votou")
+            registrarLog("ALERTA: Tentativa de voto duplo")
             return None
 
         print("Eleitor autenticado com sucesso!")
