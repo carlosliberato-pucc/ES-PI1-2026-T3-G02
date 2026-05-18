@@ -3,6 +3,39 @@
 from database.conexao import conectar
 import utils
 
+def verificarIntegridadeVotos():
+    """
+    Verifica a integridade dos votos comparando o número total de votos registrados na tabela de votos
+    com o número total de eleitores que votaram (flag_voto = TRUE) na tabela de eleitores.
+    """
+    
+    conexao = conectar()
+    cursor = conexao.cursor(dictionary=True)
+    try:
+        sql = """
+            SELECT 
+                (SELECT COUNT(*) FROM votos) AS total_votos,
+                (SELECT COUNT(*) FROM eleitores WHERE flag_voto = TRUE) AS total_eleitores_votaram;
+        """
+        cursor.execute(sql)
+        resultados = cursor.fetchone()
+
+        total_votos = resultados[0]
+        total_eleitores_votaram = resultados[1]
+
+        if total_votos != total_eleitores_votaram:
+            print("\nALERTA: Número de votos registrado no banco de dados é diferente do número de eleitores que votaram.")
+            print(f"Total de votos registrados: {total_votos}")
+            print(f"Total de eleitores que votaram: {total_eleitores_votaram}")     
+        else:
+            print("\nNenhum problema de integridade de votos encontrado. Integridade dos votos está OK.")
+    except Exception as e:
+        print(f"\nErro ao verificar integridade dos votos: {e}")
+
+    finally:
+        cursor.close()
+        conexao.close()
+
 def boletimUrna():
 
     """
@@ -88,6 +121,7 @@ def resultados() -> None:
     while True:
         print("\n===== Resultados da Votação =====")
         print("[1] Boletim de Urna")
+        print("[2] Verificar Integridade dos Votos")
         print("[0] Voltar")
  
         try:
@@ -102,6 +136,8 @@ def resultados() -> None:
                 return
             case 1:
                 boletimUrna()
+            case 2:
+                verificarIntegridadeVotos()
             case _:
                 print("Opção inválida. Tente novamente.")
 
