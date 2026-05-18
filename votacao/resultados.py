@@ -158,6 +158,7 @@ def resultados() -> None:
         print("\n===== Resultados da Votação =====")
         print("[1] Boletim de Urna")
         print("[2] Verificar Integridade dos Votos")
+        print("[3] Estatísticas de Comparecimento")
         print("[0] Voltar")
  
         try:
@@ -174,6 +175,8 @@ def resultados() -> None:
                 boletimUrna()
             case 2:
                 verificarIntegridadeVotos()
+            case 3:
+                estatisticasDeComparecimento()
             case _:
                 print("Opção inválida. Tente novamente.")
 
