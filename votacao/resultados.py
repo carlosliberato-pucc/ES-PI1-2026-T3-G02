@@ -20,8 +20,8 @@ def verificarIntegridadeVotos():
         cursor.execute(sql)
         resultados = cursor.fetchone()
 
-        total_votos = resultados[0]
-        total_eleitores_votaram = resultados[1]
+        total_votos = resultados['total_votos']
+        total_eleitores_votaram = resultados['total_eleitores_votaram']
 
         if total_votos != total_eleitores_votaram:
             print("\nALERTA: Número de votos registrado no banco de dados é diferente do número de eleitores que votaram.")
@@ -52,8 +52,8 @@ def estatisticasDeComparecimento():
         cursor.execute(sql)
         resultados = cursor.fetchone()
 
-        total_eleitores = resultados[0]
-        total_eleitores_votaram = resultados[1]
+        total_eleitores = resultados['total_eleitores']
+        total_eleitores_votaram = resultados['total_eleitores_votaram']
 
         if total_eleitores > 0:
             porcentagem_comparecimento = (total_eleitores_votaram / total_eleitores) * 100
