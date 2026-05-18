@@ -72,6 +72,34 @@ def estatisticasDeComparecimento():
         cursor.close()
         conexao.close()
 
+def VotosPorPartido():
+    """
+    Exibe o número total de votos recebidos por cada partido político, ordenando os resultados por número de votos.
+    """
+    conexao = conectar()
+    cursor = conexao.cursor(dictionary=True)
+    try:
+        sql = """
+            SELECT c.partido, COUNT(v.id_voto) AS total_votos
+            FROM candidatos c
+            LEFT JOIN votos v ON c.id_candidato = v.id_candidato
+            GROUP BY c.partido
+            ORDER BY total_votos DESC;
+        """
+        cursor.execute(sql)
+        resultados = cursor.fetchall()
+
+        print("\n===== Votos por Partido =====")
+        for resultado in resultados:
+            print(f"Partido: {resultado['partido']} - Total de votos: {resultado['total_votos']}")
+
+    except Exception as e:
+        print(f"\nErro ao exibir votos por partido: {e}")
+
+    finally:
+        cursor.close()
+        conexao.close()
+
 def boletimUrna():
 
     """
@@ -159,6 +187,7 @@ def resultados() -> None:
         print("[1] Boletim de Urna")
         print("[2] Verificar Integridade dos Votos")
         print("[3] Estatísticas de Comparecimento")
+        print("[4] Votos por Partido")
         print("[0] Voltar")
  
         try:
@@ -177,6 +206,8 @@ def resultados() -> None:
                 verificarIntegridadeVotos()
             case 3:
                 estatisticasDeComparecimento()
+            case 4:
+                VotosPorPartido()
             case _:
                 print("Opção inválida. Tente novamente.")
 
