@@ -36,6 +36,42 @@ def verificarIntegridadeVotos():
         cursor.close()
         conexao.close()
 
+def estatisticasDeComparecimento():
+    """
+    Exibe estatísticas de comparecimento dos eleitores, mostrando o número total de eleitores cadastrados,
+    o número de eleitores que votaram e a porcentagem de comparecimento.
+    """
+    conexao = conectar()
+    cursor = conexao.cursor(dictionary=True)
+    try:
+        sql = """
+            SELECT 
+                (SELECT COUNT(*) FROM eleitores) AS total_eleitores,
+                (SELECT COUNT(*) FROM eleitores WHERE flag_voto = TRUE) AS total_eleitores_votaram;
+        """
+        cursor.execute(sql)
+        resultados = cursor.fetchone()
+
+        total_eleitores = resultados[0]
+        total_eleitores_votaram = resultados[1]
+
+        if total_eleitores > 0:
+            porcentagem_comparecimento = (total_eleitores_votaram / total_eleitores) * 100
+        else:
+            porcentagem_comparecimento = 0
+
+        print("\n===== Estatísticas de Comparecimento =====")
+        print(f"Total de eleitores cadastrados: {total_eleitores}")
+        print(f"Total de eleitores que votaram: {total_eleitores_votaram}")
+        print(f"Porcentagem de comparecimento: {porcentagem_comparecimento:.2f}%")
+
+    except Exception as e:
+        print(f"\nErro ao exibir estatísticas de comparecimento: {e}")
+
+    finally:
+        cursor.close()
+        conexao.close()
+
 def boletimUrna():
 
     """
