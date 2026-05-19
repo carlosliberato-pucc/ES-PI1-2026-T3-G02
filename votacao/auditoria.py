@@ -34,7 +34,7 @@ def exibirLogs():
     Args:
         Nenhum.
 
-    Returns:
+    Return:
         None
     """
     print("\n===== LOGS DE OCORRÊNCIAS =====\n")
@@ -66,7 +66,7 @@ def exibirProtocolos():
     Args:
         Nenhum.
 
-    Returns:
+    Return:
         None
     """
     print("\n===== PROTOCOLOS DE VOTAÇÃO =====\n")

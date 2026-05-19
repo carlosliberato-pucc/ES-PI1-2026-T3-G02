@@ -7,6 +7,11 @@ def verificarIntegridadeVotos():
     """
     Verifica a integridade dos votos comparando o número total de votos registrados na tabela de votos
     com o número total de eleitores que votaram (flag_voto = TRUE) na tabela de eleitores.
+
+    Args:
+        Nenhum.
+    Returns:
+        None.
     """
     
     conexao = conectar()
@@ -40,6 +45,11 @@ def estatisticasDeComparecimento():
     """
     Exibe estatísticas de comparecimento dos eleitores, mostrando o número total de eleitores cadastrados,
     o número de eleitores que votaram e a porcentagem de comparecimento.
+
+    Args:
+        Nenhum.
+    Returns:
+        None.
     """
     conexao = conectar()
     cursor = conexao.cursor(dictionary=True)
@@ -74,7 +84,13 @@ def estatisticasDeComparecimento():
 
 def VotosPorPartido():
     """
-    Exibe o número total de votos recebidos por cada partido político, ordenando os resultados por número de votos.
+    Exibe o número total de votos recebidos por cada partido político, 
+    ordenando os resultados por número de votos.
+
+    Args:
+        Nenhum.
+    Returns:
+        None
     """
     conexao = conectar()
     cursor = conexao.cursor(dictionary=True)
@@ -172,7 +188,7 @@ def boletimUrna():
         conexao.close()
 
 
-def resultados() -> None:
+def resultados():
     """
     Exibe o menu de resultados da votação com as opções disponíveis.
  
