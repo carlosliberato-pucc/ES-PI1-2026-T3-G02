@@ -23,6 +23,8 @@ def zeresima():
     print("\n:::::::::::: Zerésima ::::::::::::\n")
     utils.pontilhado("Excluindo Votos", 3)
     cursor.execute("TRUNCATE TABLE votos;")
+    cursor.execute("UPDATE eleitores SET flag_voto = FALSE;")
+    
     registrarLog("ABERTURA: Votação iniciada com sucesso. Total de votos zerado.")
 
     listarCandidatos.listarVotosCandidato()
