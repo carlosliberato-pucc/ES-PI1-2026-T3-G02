@@ -133,6 +133,7 @@ def salvarVotos(votos, protocolo, titulo_eleitor, hora):
         if conexao and conexao.is_connected():
             conexao.close()
 
+# Desenvolvido por Carlos Liberato
 def operarVotacao():
     """
     Verifica a autenticação do eleitor e gerencia todo o fluxo de votação.
@@ -156,6 +157,7 @@ def operarVotacao():
         votos_confirmados = []
         confirmacao = False
         while not confirmacao:
+            # Loop para garantir que o eleitor insira um número válido de candidato, e só sai do loop quando um candidato válido for escolhido. O try-except captura entradas não numéricas e solicita que o usuário tente novamente.
             while True:
                 try:
                     voto = int(input("\n- Digite o número: "))
@@ -199,7 +201,8 @@ def operarVotacao():
         print("\n")
         utils.contagem_regressiva("Limpando em", 7)
         utils.limparTela()
-
+        
+# Desenvolvido por Carlos Liberato
 def gerarDataHora():
     """Captura a data e hora atuais do sistema.
     Args:

@@ -27,21 +27,25 @@ def validaTitulo(titulo):
     soma1 = 0
     multiplicador = 2
     for i in sequencia:
-
+        # O loop percorre os 8 primeiros dígitos do título, multiplicando cada um pelo seu respectivo peso (que começa em 2 e vai aumentando) e acumulando a soma.
         soma1 += int(i) * multiplicador
         multiplicador+=1
     
+    # Cálculo do primeiro dígito verificador (DV1)
     dv1 = soma1 % 11
     if dv1 == 10:
         dv1 = 0
     elif dv1 == 0 and (uf == '01' or uf == '02'):
         dv1 = 1
 
+    # Cálculo do segundo dígito verificador (DV2)
     soma2 = (int(uf[0])*7) + (int(uf[1])*8) + (dv1*9)
     dv2 = soma2 % 11
     if dv2 == 10:
+        # Se o resultado do cálculo do segundo dígito verificador for 10, ele é convertido para 0. Além disso, há uma regra específica para os estados com código '01' ou '02', onde se o resultado for 0, o DV2 é ajustado para 1.
         dv2 = 0
     elif dv2 == 0 and (uf == '01' or uf == '02'):
+        # Se o resultado do cálculo do segundo dígito verificador for 0 e a UF for '01' ou '02', o DV2 é ajustado para 1. Isso ocorre porque, nesses casos, um DV2 de 0 não é permitido, e a regra estabelece que ele deve ser 1.
         dv2 = 1
 
     return digitoVerificadores == f'{dv1}{dv2}'

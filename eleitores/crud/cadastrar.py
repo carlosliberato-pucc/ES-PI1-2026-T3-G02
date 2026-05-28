@@ -32,7 +32,7 @@ def cadastrarEleitor():
         cpf = input("- Digite o CPF (somente números): ")
         
     titulo = input("- Digite o Título de Eleitor (somente números): ")
-    while not validacoes.validaTitulo(titulo):
+    while not validacoes.validaTitulo(titulo): # validação do título de eleitor, verificando se tem 12 dígitos e se são somente números
         print("--Erro: Título Inválido. Tente Novamente...\n")
         titulo = input("- Digite o Título de Eleitor (somente números): ")
 

@@ -219,6 +219,7 @@ def menuAuditoria():
         print('[0] Voltar')
 
         opcao = int(input("Digite uma opção: "))
+        limparTela()
         match opcao:
             case 0:
                 return
