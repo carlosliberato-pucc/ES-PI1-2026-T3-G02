@@ -154,6 +154,8 @@ def boletimUrna():
             print("\nNenhum candidato cadastrado.")
             return
 
+        cursor.execute("SELECT COUNT(*) AS total_votos_nulos FROM votos WHERE id_candidato IS NULL")
+        total_votos_nulos = cursor.fetchone()['total_votos_nulos']
 
         vencedor = None
         for candidato in candidatos:
@@ -164,10 +166,11 @@ def boletimUrna():
             print("-" * 40)
 
 
-            if vencedor is None or candidato['total_votos'] > vencedor['total_votos']:
-                vencedor = candidato
+            if candidato['total_votos'] > 0:
+                if vencedor is None or candidato['total_votos'] > vencedor['total_votos']:
+                    vencedor = candidato
 
-
+        print("\nVotos nulos: " + str(total_votos_nulos))
 
         if vencedor:
             print("========================================")
@@ -178,6 +181,10 @@ def boletimUrna():
             print(f"Partido: {vencedor['partido']}")
             print(f"Total de votos: {vencedor['total_votos']}")
             print("========================================")
+        else:
+            print("\nNenhum candidato venceu.")
+            if total_votos_nulos > 0:
+                print("Todos os votos registrados foram nulos.")
 
 
     except Exception as e:

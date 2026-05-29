@@ -41,6 +41,9 @@ def gerarProtocolo(numero_candidato):
         str: Protocolo gerado no formato definido.
     """
 
+    if numero_candidato is None:
+        numero_candidato = 0
+
     letras = ''.join(random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ') for _ in range(2))
     candidato_str = str(numero_candidato).zfill(2)
     digitos_aleatorios = ''.join(str(random.randint(0, 9)) for _ in range(5))
@@ -157,13 +160,18 @@ def operarVotacao():
         votos_confirmados = []
         confirmacao = False
         while not confirmacao:
-            # Loop para garantir que o eleitor insira um número válido de candidato, e só sai do loop quando um candidato válido for escolhido. O try-except captura entradas não numéricas e solicita que o usuário tente novamente.
             while True:
                 try:
                     voto = int(input("\n- Digite o número: "))
                     candidato = candidatos.imprimirCandidato(voto)
-                    if not candidato:
-                        continue
+
+                    if candidato:
+                        voto_selecionado = candidato['id_candidato']
+                    else:
+                        print("\nNúmero inválido ou candidato não encontrado.")
+                        print("Este voto será registrado como NULO.")
+                        voto_selecionado = None
+
                     break
                 except ValueError:
                     print("--Erro: Entrada Inválida. Tente Novamente..")
@@ -175,12 +183,18 @@ def operarVotacao():
                 try:
                     opcao = int(input("\n- Digite a opção: "))
                     if opcao == 1:
+                        votos_confirmados.append(voto_selecionado)
                         confirmacao = True
-                        votos_confirmados.append(candidato['id_candidato'])
-                        print("\nVoto Confirmado.")
+
+                        if voto_selecionado is None:
+                            print("\nVoto nulo confirmado.")
+                        else:
+                            print("\nVoto Confirmado.")
+
                         break
                     elif opcao == 0:
                         print("\nVoto Cancelado.\n")
+                        print("Retornando ao início da escolha.\n")
                         break
                     else:
                         print("\nOpção Inválida. Tente Novamente")
@@ -189,12 +203,16 @@ def operarVotacao():
 
         print("\n")
         # Após confirmar tudo, gera o protocolo e salva o registro.
-        candidato_numero = votos_confirmados[0] if votos_confirmados else 0
+        candidato_numero = votos_confirmados[0] if votos_confirmados else None
         protocolo_original = gerarProtocolo(candidato_numero)
         protocolo = criptografarProtocolo(protocolo_original)
         agora = gerarDataHora()
         if salvarVotos(votos_confirmados, protocolo, titulo_eleitor, agora):
-            print("Voto registrado com sucesso.\n")
+            voto_nulo = votos_confirmados[0] is None
+            if voto_nulo:
+                print("Voto nulo registrado com sucesso.\n")
+            else:
+                print("Voto registrado com sucesso.\n")
             registrarLog("SUCESSO: Voto realizado com sucesso")
             print(f"Protocolo de confirmação: {protocolo_original}")
             print(f"Data e Hora: {agora}")
