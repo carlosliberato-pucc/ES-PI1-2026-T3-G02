@@ -134,7 +134,7 @@ Após instalar, feche e abra novamente o terminal para garantir que git já func
 Abra o **CMD** ou **PowerShell** e execute:
 
 ```bash
-git clone https://github.com/carlosliberato-pucc/PI_II_ES_TIME12.git
+git clone https://github.com/carlosliberato-pucc/ES-PI1-2026-T3-G02.git
 cd ES-PI1-2026-T3-G02
 ```
 
