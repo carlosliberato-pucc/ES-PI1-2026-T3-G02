@@ -165,7 +165,7 @@ git clone https://github.com/carlosliberato-pucc/ES-PI1-2026-T3-G02.git
 cd ES-PI1-2026-T3-G02
 ```
 
-### 2.2. Configurar as Variáveis de Ambiente (.env)
+### 2.2. Configurar as Variáveis de Ambiente
 
 1. Na pasta do projeto, abra o arquivo `database/conexao.py` em um editor de texto (Bloco de Notas, VSCode, etc)
 2. Preencha as informações do MySQL que você configurou:
