@@ -173,9 +173,10 @@ def boletimUrna():
                     vencedor = candidato
 
         print("\nVotos nulos: " + str(total_votos_nulos))
+        print('\n----------------------------------------')
 
         if vencedor:
-            print("========================================")
+            print("\n========================================")
             print("        VENCEDOR DA ELEIÇÃO")
             print("=" * 40)
             print(f"Nome: {vencedor['nome_candidato']}")

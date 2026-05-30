@@ -1,0 +1,10 @@
+[2026-05-30 13:31:45] ABERTURA: Votação iniciada com sucesso. Total de votos zerado.
+[2026-05-30 13:33:15] SUCESSO: Voto realizado com sucesso
+[2026-05-30 13:33:58] SUCESSO: Voto realizado com sucesso
+[2026-05-30 13:34:35] SUCESSO: Voto realizado com sucesso
+[2026-05-30 13:35:22] SUCESSO: Voto realizado com sucesso
+[2026-05-30 13:36:05] SUCESSO: Voto realizado com sucesso
+[2026-05-30 13:36:35] SUCESSO: Voto realizado com sucesso
+[2026-05-30 13:37:19] SUCESSO: Voto realizado com sucesso
+[2026-05-30 13:37:56] ENCERRAMENTO: Votação finalizada com sucesso.
+[2026-05-30 13:48:22] ABERTURA: Votação iniciada com sucesso. Total de votos zerado.

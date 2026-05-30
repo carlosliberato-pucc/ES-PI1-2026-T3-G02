@@ -17,6 +17,23 @@ import sys
 from utils import limparTela
 import utils
 
+
+def lerOpcaoInteira(mensagem):
+    """Lê uma opção inteira do usuário com validação.
+
+    Se o usuário digitar algo que não seja um inteiro, pede para tentar novamente.
+
+    Args:
+        mensagem (str): A mensagem a ser exibida para solicitar a entrada do usuário.
+    Returns:
+        int: A opção inteira digitada pelo usuário.
+    """
+    while True:
+        try:
+            return int(input(mensagem))
+        except ValueError:
+            print("Erro: Digite um número inteiro válido. Tente novamente...\n")
+
 def menuInicial():
     """Exibe e gerencia o menu principal do sistema de votação digital.
 
@@ -28,12 +45,14 @@ def menuInicial():
     """
     while True:
         limparTela()
-        print("====== LAD.py - Sistema de Votação Digital ======")
-        print('\n===== Menu Inicial =====')
+        print("===============================================")
+        print("||    LAD.py - Sistema de Votação Digital    ||")
+        print("===============================================")
+        print('\n============ Menu Inicial ============')
         print('[1] Gerenciamento')
         print('[2] Votação')
         print('[0] Fechar')
-        opcao = int(input("Digite a opção que deseja: "))
+        opcao = lerOpcaoInteira("Digite a opção que deseja: ")
         limparTela()
         match opcao:
             case 1:
@@ -56,11 +75,11 @@ def menuGerenciamento():
         Nenhum.
     """
     while True:
-        print('\n===== Gerenciamento =====')
+        print('\n======= Gerenciamento =======')
         print("[1] Gerenciamento de Eleitores")
         print("[2] Gerenciamento de Candidatos")
         print("[0] Voltar")
-        opcao = int(input("Digite uma opção: "))
+        opcao = lerOpcaoInteira("Digite uma opção: ")
         limparTela()
         match opcao:
             case 0:
@@ -81,12 +100,12 @@ def menuVotacao():
         Nenhum.
     """
     while True:
-        print('\n===== Votação =====')
+        print('\n============= Votação =============')
         print("[1] Abrir sistema de votação")
         print("[2] Auditoria do sistema de votação")
         print("[3] Resultados da votação")
         print("[0] Voltar")
-        opcao = int(input("Digite uma opção: "))
+        opcao = lerOpcaoInteira("Digite uma opção: ")
         limparTela()
         match opcao:
             case 0:
@@ -113,11 +132,11 @@ def menuOperarVotacao():
         Nenhum.
     """
     while True:
-        print('\n===== Operar Votação =====')
+        print('\n========== Operar Votação ==========')
         print("[1] Votar")
         print("[2] Encerrar Votação")
         print("[0] Voltar")
-        opcao = int(input("Digite uma opção: "))
+        opcao = lerOpcaoInteira("Digite uma opção: ")
         limparTela()
         match opcao:
             case 0:
@@ -140,14 +159,14 @@ def menuGerenciamentoEleitores():
         Nenhum.
     """
     while True:
-        print('\n===== Gerenciamento de Eleitores =====')
+        print('\n======= Gerenciamento de Eleitores =======')
         print('[1] Cadastrar Eleitor')
         print('[2] Remover Eleitor')
         print('[3] Editar Dados do Eleitor')
         print('[4] Listar Eleitores')
         print('[5] Buscar Eleitor')
         print('[0] Voltar')
-        opcao = int(input("Digite a opção que deseja: "))
+        opcao = lerOpcaoInteira("Digite a opção que deseja: ")
         limparTela()
         match opcao:
             case 0:
@@ -183,7 +202,7 @@ def menuGerenciamentoCandidatos():
         print('[4] Listar Candidatos')
         print('[5] Buscar Candidato')
         print('[0] Voltar')
-        opcao = int(input("Digite uma opção: "))
+        opcao = lerOpcaoInteira("Digite uma opção: ")
         limparTela()
         match opcao:
             case 0:
@@ -213,12 +232,12 @@ def menuAuditoria():
         Nenhum.
     """
     while True:
-        print('\n===== Auditoria =====')
+        print('\n============ Auditoria =============')
         print('[1] Exibição de Logs de Ocorrências')
         print('[2] Exibição de Protocolos de Votação')
         print('[0] Voltar')
 
-        opcao = int(input("Digite uma opção: "))
+        opcao = lerOpcaoInteira("Digite uma opção: ")
         limparTela()
         match opcao:
             case 0:
