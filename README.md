@@ -103,7 +103,7 @@ Caso contrário, adicione o MySQL ao PATH do Windows:
 - Procure por "Variáveis de Ambiente" no menu Iniciar
 - Em "Path" do sistema, adicione: `C:\Program Files\MySQL\MySQL Server 8.0\bin`
 
-### 1.3. Criar o Banco de Dados NotaDez
+### 1.3. Criar o Banco de Dados LadPy
 
 Existem **duas formas** de criar o banco de dados:
 
