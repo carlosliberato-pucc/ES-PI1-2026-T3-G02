@@ -1,5 +1,5 @@
 #Desenvolvido por Bruno Terra
-
+# Desenvolvido por Felipe Miranda
 from database.conexao import conectar
 import utils
 
@@ -33,7 +33,9 @@ def verificarIntegridadeVotos():
             print(f"Total de votos registrados: {total_votos}")
             print(f"Total de eleitores que votaram: {total_eleitores_votaram}")     
         else:
-            print("\nNenhum problema de integridade de votos encontrado. Integridade dos votos está OK.")
+            print(f"Total de votos registrados: {total_votos}")
+            print(f"Total de eleitores que votaram: {total_eleitores_votaram}")
+            print("\nNenhum problema de integridade de votos encontrado.")
     except Exception as e:
         print(f"\nErro ao verificar integridade dos votos: {e}")
 

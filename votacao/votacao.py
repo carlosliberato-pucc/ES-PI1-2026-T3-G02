@@ -185,12 +185,6 @@ def operarVotacao():
                     if opcao == 1:
                         votos_confirmados.append(voto_selecionado)
                         confirmacao = True
-
-                        if voto_selecionado is None:
-                            print("\nVoto nulo confirmado.")
-                        else:
-                            print("\nVoto Confirmado.")
-
                         break
                     elif opcao == 0:
                         print("\nVoto Cancelado.\n")
