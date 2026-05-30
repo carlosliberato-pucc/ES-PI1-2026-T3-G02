@@ -57,11 +57,13 @@ def listarEleitor():
     cursor.close()
     conexao.close()
 
-    escolha = menus.lerOpcaoInteira('Digite "0" para voltar para o menu: ')
     while True:
+        escolha = menus.lerOpcaoInteira('Digite "0" para voltar para o menu: ')
         if escolha == 0:
             utils.limparTela()
             break
+        else:
+            print('Número inválido.')
     
 
     
