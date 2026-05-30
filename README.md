@@ -186,7 +186,7 @@ cd ES-PI1-2026-T3-G02
 
 ---
 
-## 📦 PASSO 3: Instalar Dependências do Projeto
+## 📦 PASSO 4: Instalar Dependências do Projeto
 
 No CMD/PowerShell (dentro da pasta do projeto), execute:
 
@@ -209,7 +209,7 @@ Aguarde: Algumas linhas de texto vão começar a correr na tela. É normal! Espe
 Mensagem de sucesso: Se no final aparecer algo como “Successfully installed...”, deu tudo certo!
 ---
 
-## 🚀 PASSO 4: Colocar o Projeto para Rodar!
+## 🚀 PASSO 5: Colocar o Projeto para Rodar!
 
 Com tudo instalado, chegou a hora de ver o seu projeto ladpy funcionando na prática.
 
