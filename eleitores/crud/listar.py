@@ -4,6 +4,8 @@ import eleitores.validacoes as validacoes
 import eleitores.criptoCPF as criptoCPF
 import eleitores.chaveAcesso as chaveAcesso
 import eleitores.criptoChaveAcesso as criptoChaveAcesso
+import utils
+import menus
 
 def listarEleitor():
     """
@@ -54,5 +56,12 @@ def listarEleitor():
 
     cursor.close()
     conexao.close()
+
+    escolha = menus.lerOpcaoInteira('Digite "0" para voltar para o menu: ')
+    while True:
+        if escolha == 0:
+            utils.limparTela()
+            break
+    
 
     

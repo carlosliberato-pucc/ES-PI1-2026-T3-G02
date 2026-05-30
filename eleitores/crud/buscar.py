@@ -122,6 +122,8 @@ def buscarEleitor():
             print(f"Votou: {'Sim' if eleitor['flag_voto'] else 'Não'}")
     
     # Fecha cursor e conexão ao final da função
+    utils.contagem_regressiva("Limpando em", 7)
+    utils.limparTela()
     cursor.close()
     conexao.close()
 
