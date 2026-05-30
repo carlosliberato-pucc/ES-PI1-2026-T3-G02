@@ -45,12 +45,39 @@ O sistema simula um ambiente de votação eletrônica focado em segurança e int
 
 Antes de começar, você precisa ter instalado:
 
+1. **Python** (versão 3.10 ou superior) - [Download aqui](https://www.python.org/downloads/)
 1. **MySQL Server** (versão 8.0 ou superior) - [Download aqui](https://dev.mysql.com/downloads/mysql/)
 2. **Git** - [Download aqui](https://git-scm.com/)
 
 ---
+## 💻 PASSO 1: Instalar o Python
 
-## 🗄️ PASSO 1: Instalar e Configurar o MySQL
+### 1.1. Baixar o Instalador
+- Acesse o site oficial do Python e clique no botão amarelo escrito "Download Python 3.12" (ou a versão mais recente que aparecer).
+
+## 1.2. Instalação (🚨 MUITA ATENÇÃO AQUI!)
+Abra o arquivo que você baixou. Antes de clicar em qualquer outro botão, faça o seguinte:
+
+- 1. Marque a caixinha escrito "Add python.exe to PATH" (Adicionar Python ao PATH) que fica bem na parte de baixo da janela.
+- Nota: Se você esquecer de marcar essa caixinha, os comandos no terminal não vão funcionar mais tarde!
+
+- 2. Depois de marcar a caixinha, clique em "Install Now" (Instalar Agora).
+
+- 3. Aguarde o carregamento terminar e clique em "Close" (Fechar).
+ 
+## 1.3. Testar se deu certo
+Para garantir que o Python está pronto para uso:
+
+- Abra o seu CMD ou PowerShell.
+
+Digite o comando abaixo e aperte Enter:
+```bash
+python --version
+```
+- Se aparecer o texto escrito Python 3.X.X (com os números da versão), parabéns! O Python foi instalado corretamente. Pode fechar o terminal.
+---
+
+## 🗄️ PASSO 2: Instalar e Configurar o MySQL
 
 ### 1.1. Instalar o MySQL Server
 
@@ -124,7 +151,7 @@ Se todas aparecerem, o banco está configurado corretamente! ✅
 
 ---
 
-## 💻 PASSO 2: Clonar e Configurar o Projeto
+## 💻 PASSO 3: Clonar e Configurar o Projeto
 ## 2.1. Instalar o Git
 Baixe no [site oficial](https://git-scm.com/) e instale normalmente. Na instalação, mantenha as opções padrão.
 
